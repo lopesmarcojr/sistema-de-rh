@@ -1,3 +1,5 @@
+import db.DB;
+
 import java.sql.Connection;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or

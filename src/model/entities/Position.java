@@ -1,17 +1,17 @@
-package model.dao;
+package model.entities;
 
 import java.util.Objects;
 
-public class Department {
+public class Position {
 
     private Integer id;
     private String name;
 
-    public Department(){
+    public Position(){
 
     }
 
-    public Department(Integer id, String name) {
+    public Position(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -35,8 +35,8 @@ public class Department {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Department that = (Department) o;
-        return Objects.equals(id, that.id);
+        Position position = (Position) o;
+        return Objects.equals(id, position.id);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Department {
 
     @Override
     public String toString() {
-        return "Department{" +
+        return "Position{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
