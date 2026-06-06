@@ -1,7 +1,9 @@
 import db.DB;
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
+import model.dao.PositionDao;
 import model.entities.Department;
+import model.entities.Position;
 
 import java.sql.Connection;
 
@@ -9,11 +11,11 @@ import java.sql.Connection;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
 
-    DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
-    List<Department> dep = departmentDao.findAll();
-    for(Department d : dep){
-        System.out.println(d);
-    }
+    PositionDao positionDao = DaoFactory.createPositionDao();
+    Position position = new Position();
+    position.setName("Supervisor Operacional");
+    positionDao.insert(position);
+    System.out.println("Novo cargo criado com sucesso!");
 
     }
 
