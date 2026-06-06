@@ -10,7 +10,10 @@ import java.sql.Connection;
 void main() {
 
     DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
-    System.out.println(departmentDao.findById(3));
+    List<Department> dep = departmentDao.findAll();
+    for(Department d : dep){
+        System.out.println(d);
+    }
 
     }
 
