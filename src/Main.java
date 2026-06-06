@@ -11,9 +11,7 @@ void main() {
 
     DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
     Department department = new Department();
-    department.setName("Desenvolvimento");
-    department.setId(1);
-    departmentDao.update(department);
-    System.out.println("Departamento alterado com sucesso!");
+    departmentDao.deleteById(4);
+    System.out.println("Departamento excluído com sucesso!");
     }
 
