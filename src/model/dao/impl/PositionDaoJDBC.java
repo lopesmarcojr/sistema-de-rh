@@ -42,7 +42,20 @@ public class PositionDaoJDBC implements PositionDao {
 
     @Override
     public void update(Position position) {
-
+        PreparedStatement st = null;
+        try{
+            st = conn.prepareStatement("UPDATE position SET Name = ? WHERE Id = ?");
+            st.setString(1,position.getName());
+            st.setInt(2,position.getId());
+            int rowsAffected = st.executeUpdate();
+            if(rowsAffected == 0){
+                throw new DBException("No position found with this id!");
+            }
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+        }
     }
 
     @Override
