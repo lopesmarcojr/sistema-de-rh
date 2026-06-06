@@ -1,4 +1,7 @@
 import db.DB;
+import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
+import model.entities.Department;
 
 import java.sql.Connection;
 
@@ -6,15 +9,10 @@ import java.sql.Connection;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
 
-    Properties props = DB.loadProperties();
-
-    System.out.println(props.getProperty("dburl"));
-    System.out.println(props.getProperty("user"));
-
-    Connection conn = DB.getConnection();
-    if(conn != null){
-        System.out.println("Conexão bem sucedida!");
-    }
-    DB.closeConnection();
+    DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+    Department department = new Department();
+    department.setName("Informatica");
+    departmentDao.insert(department);
+    System.out.println("Departamento inserido com sucesso!");
     }
 
