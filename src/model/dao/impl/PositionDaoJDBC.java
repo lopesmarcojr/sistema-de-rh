@@ -60,7 +60,19 @@ public class PositionDaoJDBC implements PositionDao {
 
     @Override
     public void deleteById(Integer id) {
-
+            PreparedStatement st = null;
+            try {
+                st = conn.prepareStatement("DELETE FROM position WHERE Id = ?");
+                st.setInt(1,id);
+                int rowsAffected = st.executeUpdate();
+                if(rowsAffected == 0){
+                    throw new DBException("No position found with this id!");
+                }
+            }catch (SQLException e){
+                throw new DBException(e.getMessage());
+            }finally {
+                DB.closePreparedStatement(st);
+            }
     }
 
     @Override

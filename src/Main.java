@@ -12,11 +12,8 @@ import java.sql.Connection;
 void main() {
 
     PositionDao positionDao = DaoFactory.createPositionDao();
-    Position position = new Position();
-    position.setName("Auxiliar de Recursos");
-    position.setId(1);
-    positionDao.update(position);
-    System.out.println("Cargo atualizado com sucesso!");
+    positionDao.deleteById(1);
+    System.out.println("Cargo deletado com sucesso!");
 
     }
 
