@@ -10,8 +10,7 @@ import java.sql.Connection;
 void main() {
 
     DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
-    Department department = new Department();
-    departmentDao.deleteById(4);
-    System.out.println("Departamento excluído com sucesso!");
+    System.out.println(departmentDao.findById(3));
+
     }
 
