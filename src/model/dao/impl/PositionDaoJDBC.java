@@ -5,6 +5,7 @@ import db.DBException;
 import model.dao.PositionDao;
 import model.entities.Position;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,11 +78,34 @@ public class PositionDaoJDBC implements PositionDao {
 
     @Override
     public Position findById(Integer id) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT Id, Name FROM position WHERE Id = ?");
+            st.setInt(1,id);
+            rs = st.executeQuery();
+            if(rs.next()){
+                Position position = instantiantePosition(rs);
+                return position;
+            }
+            return null;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
     public List<Position> findAll() {
         return List.of();
+    }
+
+    public Position instantiantePosition(ResultSet rs) throws SQLException{
+        Position position = new Position();
+        position.setId(rs.getInt("Id"));
+        position.setName(rs.getString("Name"));
+        return position;
     }
 }

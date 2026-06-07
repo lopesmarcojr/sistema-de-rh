@@ -12,8 +12,8 @@ import java.sql.Connection;
 void main() {
 
     PositionDao positionDao = DaoFactory.createPositionDao();
-    positionDao.deleteById(1);
-    System.out.println("Cargo deletado com sucesso!");
+    System.out.println(positionDao.findById(2));
+
 
     }
 
