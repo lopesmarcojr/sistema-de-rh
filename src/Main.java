@@ -12,7 +12,7 @@ import java.sql.Connection;
 void main() {
 
     PositionDao positionDao = DaoFactory.createPositionDao();
-    System.out.println(positionDao.findById(2));
+    System.out.println(positionDao.findAll());
 
 
     }

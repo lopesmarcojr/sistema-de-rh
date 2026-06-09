@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PositionDaoJDBC implements PositionDao {
@@ -99,7 +100,23 @@ public class PositionDaoJDBC implements PositionDao {
 
     @Override
     public List<Position> findAll() {
-        return List.of();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT Id, Name FROM position");
+            rs = st.executeQuery();
+            List<Position> positions = new ArrayList<>();
+            while(rs.next()){
+                Position position = instantiantePosition(rs);
+                positions.add(position);
+            }
+            return positions;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     public Position instantiantePosition(ResultSet rs) throws SQLException{
