@@ -13,16 +13,21 @@ import java.sql.Connection;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
 
-    System.out.println("Teste de inserção de novo empregado");
+    /*System.out.println("Teste de inserção de novo empregado");
     EmployeeDao employeeDao = DaoFactory.createEmploeeyDao();
     Employee employee = new Employee();
-    employee.setName("Marco Aurelio");
-    employee.setSalary(3.500);
+    employee.setName("Erika dos Santos");
+    employee.setSalary(5000.0);
     employee.setHireDate(new Date());
-    employee.setDepartmentId(5);
-    employee.setPositionId(1);
+    employee.setDepartmentId(2);
+    employee.setPositionId(2);
     employeeDao.insert(employee);
-    System.out.println("Novo empregado inserido com sucesso!");
+    System.out.println("Empregado inserido com sucesso!");*/
+
+    EmployeeDao employeeDao = DaoFactory.createEmploeeyDao();
+    Employee employee = employeeDao.findById(1);
+    employee.setSalary(3500.0);
+    employeeDao.update(employee);
 
 
     }
