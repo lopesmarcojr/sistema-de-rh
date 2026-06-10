@@ -10,4 +10,5 @@ public interface EmployeeDao {
     void deleteById(Integer id);
     Employee findById(Integer id);
     List<Employee> findAll();
+    Integer countEmployees();
 }

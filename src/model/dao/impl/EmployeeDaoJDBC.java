@@ -128,6 +128,26 @@ public class EmployeeDaoJDBC implements EmployeeDao {
         }
     }
 
+    @Override
+    public Integer countEmployees() {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Integer contador = 0;
+        try {
+            st = conn.prepareStatement("SELECT COUNT(*) as TotalEmployees FROM employee");
+            rs = st.executeQuery();
+            if(rs.next()){
+                contador = rs.getInt("TotalEmployees");
+            }
+            return contador;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
     public Employee instantiateEmployee(ResultSet rs) throws SQLException{
         Employee employee = new Employee();
         employee.setId(rs.getInt("Id"));
