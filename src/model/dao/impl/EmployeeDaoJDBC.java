@@ -3,7 +3,9 @@ package model.dao.impl;
 import db.DB;
 import db.DBException;
 import model.dao.EmployeeDao;
+import model.entities.Department;
 import model.entities.Employee;
+import model.entities.Position;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,8 +33,8 @@ public class EmployeeDaoJDBC implements EmployeeDao {
             st.setString(1,employee.getName());
             st.setDouble(2,employee.getSalary());
             st.setDate(3,new java.sql.Date(employee.getHireDate().getTime()));
-            st.setInt(4,employee.getDepartmentId());
-            st.setInt(5,employee.getPositionId());
+            st.setInt(4,employee.getDepartmentId().getId());
+            st.setInt(5,employee.getPositionId().getId());
             int rowsAffected = st.executeUpdate();
             if(rowsAffected > 0){
                 ResultSet rs = st.getGeneratedKeys();
@@ -57,8 +59,8 @@ public class EmployeeDaoJDBC implements EmployeeDao {
             st.setString(1,employee.getName());
             st.setDouble(2,employee.getSalary());
             st.setDate(3,new java.sql.Date(employee.getHireDate().getTime()));
-            st.setInt(4,employee.getDepartmentId());
-            st.setInt(5,employee.getPositionId());
+            st.setInt(4,employee.getDepartmentId().getId());
+            st.setInt(5,employee.getPositionId().getId());
             st.setInt(6,employee.getId());
             int rowsAffected = st.executeUpdate();
             if(rowsAffected == 0){
@@ -94,7 +96,11 @@ public class EmployeeDaoJDBC implements EmployeeDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM employee WHERE Id = ?");
+            st = conn.prepareStatement("SELECT employee.*, department.Id as DepartmentId, department.Name as DepartmentName, "
+                                    +      " position.Id as PositionId, position.Name as PositionName from employee "
+                                    +      " INNER JOIN department ON department.Id = employee.DepartmentId "
+                                    +      " INNER JOIN position ON position.Id = employee.PositionId "
+                                    +      " WHERE employee.Id = ?");
             st.setInt(1,id);
             rs = st.executeQuery();
             if(rs.next()){
@@ -148,14 +154,37 @@ public class EmployeeDaoJDBC implements EmployeeDao {
         }
     }
 
+    @Override
+    public List<Employee> findPage(int page, int pageSize) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int offset = (page - 1) * pageSize;
+
+        return null;
+    }
+
     public Employee instantiateEmployee(ResultSet rs) throws SQLException{
         Employee employee = new Employee();
         employee.setId(rs.getInt("Id"));
         employee.setName(rs.getString("Name"));
         employee.setSalary(rs.getDouble("Salary"));
         employee.setHireDate(rs.getDate("HireDate"));
-        employee.setDepartmentId(rs.getInt("DepartmentId"));
-        employee.setPositionId(rs.getInt("PositionId"));
+        employee.setDepartmentId(instantiateDepatment(rs));
+        employee.setPositionId(instantiatePosition(rs));
         return employee;
+    }
+
+    public Department instantiateDepatment(ResultSet rs) throws SQLException{
+        Department department = new Department();
+        department.setId(rs.getInt("DepartmentId"));
+        department.setName(rs.getString("DepartmentName"));
+        return department;
+    }
+
+    public Position instantiatePosition(ResultSet rs) throws SQLException{
+        Position position = new Position();
+        position.setId(rs.getInt("PositionId"));
+        position.setName(rs.getString("PositionName"));
+        return position;
     }
 }

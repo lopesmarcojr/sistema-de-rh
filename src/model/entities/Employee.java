@@ -9,14 +9,14 @@ public class Employee {
     private String name;
     private Double salary;
     private Date hireDate;
-    private Integer DepartmentId;
-    private Integer PositionId;
+    private Department DepartmentId;
+    private Position PositionId;
 
     public Employee(){
 
     }
 
-    public Employee(Integer id, String name, Double salary, Date hireDate, Integer departmentId, Integer positionId) {
+    public Employee(Integer id, String name, Double salary, Date hireDate, Department departmentId, Position positionId) {
         this.id = id;
         this.name = name;
         this.salary = salary;
@@ -57,19 +57,19 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    public Integer getDepartmentId() {
+    public Department getDepartmentId() {
         return DepartmentId;
     }
 
-    public void setDepartmentId(Integer departmentId) {
+    public void setDepartmentId(Department departmentId) {
         DepartmentId = departmentId;
     }
 
-    public Integer getPositionId() {
+    public Position getPositionId() {
         return PositionId;
     }
 
-    public void setPositionId(Integer positionId) {
+    public void setPositionId(Position positionId) {
         PositionId = positionId;
     }
 
@@ -87,12 +87,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", hireDate=" + hireDate +
-                ", DepartmentId=" + DepartmentId +
-                ", PositionId=" + PositionId +
-                '}';
+        return name +  ", data da contratação: " + hireDate + ", departamento: " + DepartmentId +
+                ", cargo: " + PositionId;
     }
 }

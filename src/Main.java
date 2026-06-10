@@ -30,6 +30,8 @@ void main() throws ParseException {
     System.out.println("Teste de contagem de empregados");
     System.out.println("Total: " + employeeDao.countEmployees() + " empregados  ");
 
+    System.out.println(employeeDao.findById(2));
+
 
     }
 

@@ -11,4 +11,5 @@ public interface EmployeeDao {
     Employee findById(Integer id);
     List<Employee> findAll();
     Integer countEmployees();
+    List<Employee> findPage(int page, int pageSize);
 }
