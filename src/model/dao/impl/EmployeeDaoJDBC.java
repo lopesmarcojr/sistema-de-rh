@@ -159,8 +159,27 @@ public class EmployeeDaoJDBC implements EmployeeDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         int offset = (page - 1) * pageSize;
-
-        return null;
+        try {
+            st = conn.prepareStatement("SELECT employee.*, department.Id as DepartmentId, department.Name as DepartmentName, "
+                                    +      " position.Id as PositionId, position.Name as PositionName FROM employee "
+                                    +      " INNER JOIN department ON department.Id = employee.DepartmentId "
+                                    +      " INNER JOIN position ON position.Id = employee.PositionId "
+                                    +      " LIMIT ? OFFSET ?");
+            st.setInt(1,pageSize);
+            st.setInt(2,offset);
+            rs = st.executeQuery();
+            List<Employee> empsByPage = new ArrayList<>();
+            while(rs.next()){
+                Employee employee = instantiateEmployee(rs);
+                empsByPage.add(employee);
+            }
+            return empsByPage;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     public Employee instantiateEmployee(ResultSet rs) throws SQLException{

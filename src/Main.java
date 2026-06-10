@@ -27,11 +27,11 @@ void main() throws ParseException {
     employeeDao.insert(employee);
     System.out.println("Empregado inserido com sucesso!");*/
 
-    System.out.println("Teste de contagem de empregados");
-    System.out.println("Total: " + employeeDao.countEmployees() + " empregados  ");
 
-    System.out.println(employeeDao.findById(2));
-
-
+    System.out.println("Teste de paginação");
+    List<Employee> employees = employeeDao.findPage(1,5);
+    for(Employee e : employees){
+        System.out.println(e);
     }
+}
 

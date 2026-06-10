@@ -12,4 +12,5 @@ public interface EmployeeDao {
     List<Employee> findAll();
     Integer countEmployees();
     List<Employee> findPage(int page, int pageSize);
+
 }
