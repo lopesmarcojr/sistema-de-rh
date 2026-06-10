@@ -25,9 +25,15 @@ void main() {
     System.out.println("Empregado inserido com sucesso!");*/
 
     EmployeeDao employeeDao = DaoFactory.createEmploeeyDao();
-    Employee employee = employeeDao.findById(1);
+    /*Employee employee = employeeDao.findById(1);
     employee.setSalary(3500.0);
-    employeeDao.update(employee);
+    employeeDao.update(employee);*/
+
+    System.out.println("Teste do método findAll");
+    List<Employee> emps = employeeDao.findAll();
+    for(Employee e : emps){
+        System.out.println(e);
+    }
 
 
     }

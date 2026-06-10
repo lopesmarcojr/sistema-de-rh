@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDaoJDBC implements EmployeeDao {
@@ -108,7 +109,23 @@ public class EmployeeDaoJDBC implements EmployeeDao {
 
     @Override
     public List<Employee> findAll() {
-        return List.of();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM employee");
+            rs = st.executeQuery();
+            List<Employee> employees = new ArrayList<>();
+            while(rs.next()){
+                Employee emp = instantiateEmployee(rs);
+                employees.add(emp);
+            }
+            return employees;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     public Employee instantiateEmployee(ResultSet rs) throws SQLException{
