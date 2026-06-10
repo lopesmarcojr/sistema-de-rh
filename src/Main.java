@@ -1,8 +1,10 @@
 import db.DB;
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
+import model.dao.EmployeeDao;
 import model.dao.PositionDao;
 import model.entities.Department;
+import model.entities.Employee;
 import model.entities.Position;
 
 import java.sql.Connection;
@@ -11,8 +13,16 @@ import java.sql.Connection;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
 
-    PositionDao positionDao = DaoFactory.createPositionDao();
-    System.out.println(positionDao.findAll());
+    System.out.println("Teste de inserção de novo empregado");
+    EmployeeDao employeeDao = DaoFactory.createEmploeeyDao();
+    Employee employee = new Employee();
+    employee.setName("Marco Aurelio");
+    employee.setSalary(3.500);
+    employee.setHireDate(new Date());
+    employee.setDepartmentId(5);
+    employee.setPositionId(1);
+    employeeDao.insert(employee);
+    System.out.println("Novo empregado inserido com sucesso!");
 
 
     }

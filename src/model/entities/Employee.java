@@ -7,6 +7,7 @@ public class Employee {
 
     private Integer id;
     private String name;
+    private Double salary;
     private Date hireDate;
     private Integer DepartmentId;
     private Integer PositionId;
@@ -15,9 +16,10 @@ public class Employee {
 
     }
 
-    public Employee(Integer id, String name, Date hireDate, Integer departmentId, Integer positionId) {
+    public Employee(Integer id, String name, Double salary, Date hireDate, Integer departmentId, Integer positionId) {
         this.id = id;
         this.name = name;
+        this.salary = salary;
         this.hireDate = hireDate;
         DepartmentId = departmentId;
         PositionId = positionId;
@@ -37,6 +39,14 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 
     public Date getHireDate() {
