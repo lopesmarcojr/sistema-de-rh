@@ -28,10 +28,14 @@ void main() throws ParseException {
     System.out.println("Empregado inserido com sucesso!");*/
 
 
-    System.out.println("Teste de paginação");
+    /*System.out.println("Teste de paginação");
     List<Employee> employees = employeeDao.findPage(1,5);
     for(Employee e : employees){
         System.out.println(e);
-    }
+    }*/
+
+    System.out.println("Teste contando por filtros");
+    Integer emps = employeeDao.countEmployeeByFilters(null, null, 5000.0);
+    System.out.println(emps);
 }
 

@@ -88,6 +88,6 @@ public class Employee {
     @Override
     public String toString() {
         return name +  ", data da contratação: " + hireDate + ", departamento: " + DepartmentId +
-                ", cargo: " + PositionId;
+                ", cargo: " + PositionId + ", salário: " + salary;
     }
 }

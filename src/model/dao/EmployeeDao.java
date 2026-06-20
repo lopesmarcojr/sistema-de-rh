@@ -12,5 +12,7 @@ public interface EmployeeDao {
     List<Employee> findAll();
     Integer countEmployees();
     List<Employee> findPage(int page, int pageSize);
+    List<Employee> findByFilters(String department, String position, Double salary);
+    Integer countEmployeeByFilters(String department, String position, Double salary);
 
 }

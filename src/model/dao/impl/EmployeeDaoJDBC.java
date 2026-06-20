@@ -25,6 +25,7 @@ public class EmployeeDaoJDBC implements EmployeeDao {
     @Override
     public void insert(Employee employee) {
         PreparedStatement st = null;
+        ResultSet rs = null;
         try {
             st = conn.prepareStatement("INSERT INTO employee "
                                        +    " (Name, Salary, HireDate, DepartmentId, PositionId)"
@@ -37,7 +38,7 @@ public class EmployeeDaoJDBC implements EmployeeDao {
             st.setInt(5,employee.getPositionId().getId());
             int rowsAffected = st.executeUpdate();
             if(rowsAffected > 0){
-                ResultSet rs = st.getGeneratedKeys();
+                rs = st.getGeneratedKeys();
                 if(rs.next()){
                     int id = rs.getInt(1);
                     employee.setId(id);
@@ -46,6 +47,9 @@ public class EmployeeDaoJDBC implements EmployeeDao {
         }
         catch (SQLException e){
             throw new DBException(e.getMessage());
+        }finally{
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
         }
     }
 
@@ -78,7 +82,7 @@ public class EmployeeDaoJDBC implements EmployeeDao {
     public void deleteById(Integer id) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("DELETE Id,Name FROM employee WHERE Id = ?");
+            st = conn.prepareStatement("DELETE FROM employee WHERE Id = ?");
             st.setInt(1,id);
             int rowsAffected = st.executeUpdate();
             if(rowsAffected == 0){
@@ -110,6 +114,9 @@ public class EmployeeDaoJDBC implements EmployeeDao {
             return null;
         }catch (SQLException e){
             throw new DBException(e.getMessage());
+        }finally{
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
         }
     }
 
@@ -118,7 +125,10 @@ public class EmployeeDaoJDBC implements EmployeeDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM employee");
+            st = conn.prepareStatement("SELECT employee.*, department.Id as DepartmentId, department.Name as DepartmentName, "
+                                    +      " position.Id as PositionId, position.Name as PositionName from employee "
+                                    +      " INNER JOIN department ON department.Id = employee.DepartmentId "
+                                    +      " INNER JOIN position ON position.Id = employee.PositionId");
             rs = st.executeQuery();
             List<Employee> employees = new ArrayList<>();
             while(rs.next()){
@@ -164,6 +174,7 @@ public class EmployeeDaoJDBC implements EmployeeDao {
                                     +      " position.Id as PositionId, position.Name as PositionName FROM employee "
                                     +      " INNER JOIN department ON department.Id = employee.DepartmentId "
                                     +      " INNER JOIN position ON position.Id = employee.PositionId "
+                                    +      " ORDER BY employee.Id "
                                     +      " LIMIT ? OFFSET ?");
             st.setInt(1,pageSize);
             st.setInt(2,offset);
@@ -174,6 +185,138 @@ public class EmployeeDaoJDBC implements EmployeeDao {
                 empsByPage.add(employee);
             }
             return empsByPage;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public List<Employee> findByFilters(String department, String position, Double salary) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int contador = 0;
+        String query = "SELECT employee.*, department.Id as DepartmentId, department.Name as DepartmentName, "
+                +      " position.Id as PositionId, position.Name as PositionName from employee "
+                +      " INNER JOIN department ON department.Id = employee.DepartmentId "
+                +      " INNER JOIN position ON position.Id = employee.PositionId WHERE ";
+
+            if(department != null || position != null || salary != null) {
+                if (department != null) {
+                    query += " LOWER (department.Name) LIKE ?";
+                    contador++;
+                }
+                if (position != null) {
+                    if (contador > 0) {
+                        query += " AND LOWER (position.Name) LIKE ? ";
+                        contador++;
+                    } else {
+                        query += " LOWER (position.Name) LIKE ? ";
+                        contador++;
+                    }
+                }
+                if (salary != null) {
+                    if (contador > 0) {
+                        query += " AND employee.salary >= ? ";
+                        contador++;
+                    } else {
+                        query += " employee.salary >= ? ";
+                        contador++;
+                    }
+                }
+            }
+            else{
+                throw new DBException("At least one parameter must be valid!");
+            }
+        try {
+            int indice = 1;
+            st = conn.prepareStatement(query);
+            if(department != null){
+                st.setString(indice,  "%" + department.toLowerCase() + "%");
+                indice++;
+            }
+            if(position != null){
+                st.setString(indice, "%" + position.toLowerCase() + "%");
+                indice++;
+            }
+            if(salary != null){
+                st.setDouble(indice, salary);
+                indice++;
+            }
+            rs = st.executeQuery();
+            List<Employee> employeeList = new ArrayList<>();
+            while(rs.next()){
+                Employee emp = instantiateEmployee(rs);
+                employeeList.add(emp);
+            }
+            return employeeList;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public Integer countEmployeeByFilters(String department, String position, Double salary) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int contador = 0;
+        String query = "SELECT COUNT(*) as TotalEmployee FROM employee "
+                +    " INNER JOIN department ON department.Id = employee.DepartmentId "
+                +    " INNER JOIN position ON position.Id = employee.PositionId WHERE ";
+        if(department != null || position != null || salary != null){
+            if(department != null){
+                query += " LOWER (department.Name) LIKE ? ";
+                contador++;
+            }
+            if(position != null){
+                if(contador > 0){
+                    query += " AND LOWER (position.Name) LIKE ? ";
+                    contador++;
+                }
+                else{
+                    query += " LOWER (position.Name) LIKE ? ";
+                    contador++;
+                }
+            }
+            if(salary != null){
+                if(contador > 0){
+                    query += " AND salary >= ? ";
+                    contador++;
+                }
+                else{
+                    query += " salary >= ? ";
+                }
+            }
+        }
+        else{
+            throw new DBException("At least one of the parameters must be valid!");
+        }
+        try{
+            st = conn.prepareStatement(query);
+            int indice = 1;
+            if(department != null){
+                st.setString(indice, "%" + department.toLowerCase() + "%");
+                indice++;
+            }
+            if(position != null){
+                st.setString(indice, "%" + position.toLowerCase() + "%");
+                indice++;
+            }
+            if(salary != null){
+                st.setDouble(indice, salary);
+                indice++;
+            }
+            rs = st.executeQuery();
+            int count = 0;
+            if(rs.next()){
+                count = rs.getInt("TotalEmployee");
+            }
+            return count;
         }catch (SQLException e){
             throw new DBException(e.getMessage());
         }finally {
