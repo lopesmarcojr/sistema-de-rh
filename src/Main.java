@@ -34,8 +34,10 @@ void main() throws ParseException {
         System.out.println(e);
     }*/
 
-    System.out.println("Teste contando por filtros");
-    Integer emps = employeeDao.countEmployeeByFilters(null, null, 5000.0);
-    System.out.println(emps);
+    System.out.println("Teste por filtros");
+    List<Employee> emps = employeeDao.findPageByFilters("Informatica",null,null,2,5);
+    for(Employee e : emps){
+        System.out.println(e);
+    }
 }
 
