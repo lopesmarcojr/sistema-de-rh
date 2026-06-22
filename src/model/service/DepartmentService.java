@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DepartmentService {
 
-    public DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+    private DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 
     public void insert(Department department){
         if(department == null){
@@ -32,8 +32,8 @@ public class DepartmentService {
         if(department.getId() == null){
             throw new DBException("Department id cannot be null");
         }
-        if(department.getId() < 0){
-            throw new DBException("Department if should be greater than zero");
+        if(department.getId() <= 0){
+            throw new DBException("Department id should be greater than zero");
         }
         if(department.getName() == null){
             throw new DBException("Department name cannot be null");
@@ -48,10 +48,19 @@ public class DepartmentService {
         if(id == null){
             throw new DBException("Id cannot be null");
         }
-        if(id < 0){
+        if(id <= 0){
             throw new DBException("Id should be greater than zero");
         }
         return departmentDao.findById(id);
+    }
+
+    public void deleteById(Integer id){
+        if(id == null){
+            throw new DBException("Id cannot be null");
+        }
+        if(id <= 0){
+            throw new DBException("Id should be greater than zero");
+        }
     }
 
     public List<Department> findAll(){
