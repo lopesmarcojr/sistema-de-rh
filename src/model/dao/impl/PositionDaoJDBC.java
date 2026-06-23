@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PositionDaoJDBC implements PositionDao {
 
-    public static Connection conn;
+    public Connection conn;
 
     public PositionDaoJDBC(Connection conn){
         this.conn = conn;

@@ -6,6 +6,7 @@ import model.dao.PositionDao;
 import model.entities.Department;
 import model.entities.Employee;
 import model.entities.Position;
+import model.service.EmployeeService;
 
 import java.sql.Connection;
 
@@ -15,7 +16,7 @@ void main() throws ParseException {
 
    /* SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     System.out.println("Teste de inserção de novo empregado");*/
-    EmployeeDao employeeDao = DaoFactory.createEmploeeyDao();
+    EmployeeService employeeService = new EmployeeService();
     /*Employee employee = new Employee();
     employee.setName("Roseli Teixeia Rosa");
     employee.setSalary(6581.4);
@@ -35,7 +36,7 @@ void main() throws ParseException {
     }*/
 
     System.out.println("Teste por filtros");
-    List<Employee> emps = employeeDao.findPageByFilters("Informatica",null,null,2,5);
+    List<Employee> emps = employeeService.findPageByFilters("Informatica",null,null,1,5);
     for(Employee e : emps){
         System.out.println(e);
     }

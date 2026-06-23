@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DepartmentDaoJDBC implements DepartmentDao{
 
-    public static Connection conn;
+    public Connection conn;
 
     public DepartmentDaoJDBC(Connection conn){
         this.conn = conn;

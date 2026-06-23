@@ -16,7 +16,7 @@ import java.util.List;
 
 public class EmployeeDaoJDBC implements EmployeeDao {
 
-    public static Connection conn;
+    public Connection conn;
 
     public EmployeeDaoJDBC(Connection conn) {
         this.conn = conn;
