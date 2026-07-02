@@ -1,9 +1,9 @@
 package model.dao.impl;
 
 import db.DB;
-import main.java.db.DBException;
+import db.DBException;
+import model.entities.Position;
 import model.dao.PositionDao;
-import main.java.model.entities.Position;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

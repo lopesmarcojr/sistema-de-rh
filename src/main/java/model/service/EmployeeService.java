@@ -1,9 +1,9 @@
 package model.service;
 
-import main.java.db.DBException;
+import db.DBException;
+import model.entities.Employee;
 import model.dao.DaoFactory;
 import model.dao.EmployeeDao;
-import main.java.model.entities.Employee;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package model.dao;
 
-import main.java.model.entities.Position;
+import model.entities.Position;
 
 import java.util.List;
 

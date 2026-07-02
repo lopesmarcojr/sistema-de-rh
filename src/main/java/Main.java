@@ -1,4 +1,4 @@
-import main.java.model.entities.Employee;
+import model.entities.Employee;
 import model.service.EmployeeService;
 
 import java.text.ParseException;

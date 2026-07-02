@@ -1,11 +1,10 @@
 package db;
 
-import java.io.FileInputStream;
+import db.DBException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
-import main.java.db.DBException;
 
 public class DB {
 
@@ -29,7 +28,7 @@ public class DB {
         try(InputStream fs = DB.class.getClassLoader().getResourceAsStream("db.properties")){
             props.load(fs);
         }catch (IOException e){
-            throw new main.java.db.DBException(e.getMessage());
+            throw new DBException(e.getMessage());
         }
         return props;
     }

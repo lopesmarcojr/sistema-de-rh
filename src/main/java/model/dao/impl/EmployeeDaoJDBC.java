@@ -1,11 +1,11 @@
 package model.dao.impl;
 
 import db.DB;
-import main.java.db.DBException;
+import db.DBException;
+import model.entities.Department;
+import model.entities.Employee;
+import model.entities.Position;
 import model.dao.EmployeeDao;
-import main.java.model.entities.Department;
-import main.java.model.entities.Employee;
-import main.java.model.entities.Position;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
