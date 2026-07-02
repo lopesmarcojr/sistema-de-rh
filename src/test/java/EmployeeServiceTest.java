@@ -3,16 +3,19 @@ import model.entities.Employee;
 import model.service.EmployeeService;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EmployeeServiceTest {
 
     EmployeeService service = new EmployeeService();
 
     @Test
-    public void insertThrowsExceptionWhenReceivesNull(){
+    public void insertThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(){
         EmployeeService service = new EmployeeService();
         Employee employee = null;
-        assertThrows(DBException.class, () -> service.insert(employee));
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String actualMessage = exception.getMessage();
+        String expectedMessage = "Employee cannot be null";
+        assertEquals(expectedMessage,actualMessage);
     }
 }
