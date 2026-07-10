@@ -55,6 +55,15 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenSalaryIsnUll(){
+        employee = createValidEmployee();
+        employee.setSalary(null);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee salary cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
     public void insertThrowsExceptionWithCorrectMessageWhenSalaryIsZero(){
         EmployeeService service = new EmployeeService();
         Employee employee = new Employee();
