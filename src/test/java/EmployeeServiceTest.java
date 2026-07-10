@@ -46,6 +46,15 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenNameIsEmpty(){
+        employee = createValidEmployee();
+        employee.setName("");
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee name cannot be empty";
+        assertEquals(expectedMessage,exception.getMessage());
+    }
+
+    @Test
     public void insertThrowsExceptionWithCorrectMessageWhenSalaryIsZero(){
         EmployeeService service = new EmployeeService();
         Employee employee = new Employee();
