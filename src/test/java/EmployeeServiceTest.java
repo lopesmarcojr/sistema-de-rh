@@ -65,13 +65,20 @@ public class EmployeeServiceTest {
 
     @Test
     public void insertThrowsExceptionWithCorrectMessageWhenSalaryIsZero(){
-        EmployeeService service = new EmployeeService();
-        Employee employee = new Employee();
-        employee.setName("Exemplo");
+        employee = createValidEmployee();
         employee.setSalary(0.0);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
         String actualMessage = exception.getMessage();
         String expectedMessage = "Employee salary should be greater than zero";
         assertEquals(expectedMessage,actualMessage);
+    }
+
+    @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenHireDateIsNull(){
+        employee = createValidEmployee();
+        employee.setHireDate(null);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee hire date cannot be null";
+        assertEquals(expectedMessage,exception.getMessage());
     }
 }
