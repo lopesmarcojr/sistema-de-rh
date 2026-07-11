@@ -126,7 +126,7 @@ public class EmployeeService {
             throw new DBException("Employee hire date cannot be null");
         }
         if(employee.getDepartment() == null){
-            throw new DBException("Employee department id cannot be null");
+            throw new DBException("Employee department cannot be null");
         }
         if(employee.getDepartment().getId() == null){
             throw new DBException("Employee department id cannot be null");
@@ -135,7 +135,7 @@ public class EmployeeService {
             throw new DBException("Employee department id should be greater than zero");
         }
         if(employee.getPosition() == null){
-            throw new DBException("Employee position id cannot be null");
+            throw new DBException("Employee position cannot be null");
         }
         if(employee.getPosition().getId() == null){
             throw new DBException("Employee position id cannot be null");

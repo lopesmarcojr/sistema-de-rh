@@ -82,4 +82,18 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
+    @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenDepartmentIsNull(){
+        employee = createValidEmployee();
+        employee.setDepartment(null);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee department cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull(){
+
+    }
+
 }
