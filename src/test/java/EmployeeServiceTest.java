@@ -132,4 +132,14 @@ public class EmployeeServiceTest {
         String expectedMessage = "Employee position id cannot be null";
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenPositionIdIsZero(){
+        employee = createValidEmployee();
+        Position position = new Position(0, "Teste");
+        employee.setPosition(position);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee position id should be greater then zero";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
 }
