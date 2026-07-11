@@ -34,8 +34,8 @@ public class EmployeeDaoJDBC implements EmployeeDao {
             st.setString(1, employee.getName());
             st.setDouble(2, employee.getSalary());
             st.setDate(3, new java.sql.Date(employee.getHireDate().getTime()));
-            st.setInt(4, employee.getDepartmentId().getId());
-            st.setInt(5, employee.getPositionId().getId());
+            st.setInt(4, employee.getDepartment().getId());
+            st.setInt(5, employee.getPosition().getId());
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
                 rs = st.getGeneratedKeys();
@@ -62,8 +62,8 @@ public class EmployeeDaoJDBC implements EmployeeDao {
             st.setString(1, employee.getName());
             st.setDouble(2, employee.getSalary());
             st.setDate(3, new java.sql.Date(employee.getHireDate().getTime()));
-            st.setInt(4, employee.getDepartmentId().getId());
-            st.setInt(5, employee.getPositionId().getId());
+            st.setInt(4, employee.getDepartment().getId());
+            st.setInt(5, employee.getPosition().getId());
             st.setInt(6, employee.getId());
             int rowsAffected = st.executeUpdate();
             if (rowsAffected == 0) {
@@ -400,8 +400,8 @@ public class EmployeeDaoJDBC implements EmployeeDao {
         employee.setName(rs.getString("Name"));
         employee.setSalary(rs.getDouble("Salary"));
         employee.setHireDate(rs.getDate("HireDate"));
-        employee.setDepartmentId(instantiateDepatment(rs));
-        employee.setPositionId(instantiatePosition(rs));
+        employee.setDepartment(instantiateDepatment(rs));
+        employee.setPosition(instantiatePosition(rs));
         return employee;
     }
 
