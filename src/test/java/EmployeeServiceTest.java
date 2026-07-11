@@ -5,6 +5,8 @@ import model.entities.Position;
 import model.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
+
 import java.sql.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -93,7 +95,32 @@ public class EmployeeServiceTest {
 
     @Test
     public void insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull(){
+        employee = createValidEmployee();
+        Department department = new Department(null, "Teste");
+        employee.setDepartment(department);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee department id cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
 
+    @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsZero(){
+        employee = createValidEmployee();
+        Department department = new Department(0, "Teste");
+        employee.setDepartment(department);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee department id should be greater then zero";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    public void insertThrowsExceptionWithCorrectMessageWhenPositionIsNull(){
+        employee = createValidEmployee();
+        Position position = null;
+        employee.setPosition(position);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
+        String expectedMessage = "Employee position cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
 }
