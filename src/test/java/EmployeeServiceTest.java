@@ -292,4 +292,20 @@ public class EmployeeServiceTest {
         String expectedMessage = "Employee id should be greater then zero";
         assertEquals(expectedMessage,exception.getMessage());
     }
+
+    @Test
+    void deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(){
+        Integer id = null;
+        DBException exception = assertThrows(DBException.class, () -> service.deleteById(id));
+        String expectedMessage = "Employee id cannot be null";
+        assertEquals(expectedMessage,exception.getMessage());
+    }
+
+    @Test
+    void deleteThrowsExceptionWithCorrectMessageWhenEmoployeeIdIsZero(){
+        Integer id = 0;
+        DBException exception = assertThrows(DBException.class, () -> service.deleteById(id));
+        String expectedMessage = "Employee should be greater then zero";
+        assertEquals(expectedMessage,exception.getMessage());
+    }
 }
