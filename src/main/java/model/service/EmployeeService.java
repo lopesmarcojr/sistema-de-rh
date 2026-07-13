@@ -86,7 +86,7 @@ public class EmployeeService {
             throw new DBException("Position cannot be empty");
         }
         if(salary != null && salary <= 0){
-            throw new DBException("Salary should be greater than zero");
+            throw new DBException("Salary should be greater then zero");
         }
     }
 
@@ -104,7 +104,7 @@ public class EmployeeService {
             throw new DBException("Employee salary cannot be null");
         }
         if(employee.getSalary() <= 0){
-            throw new DBException("Employee salary should be greater than zero");
+            throw new DBException("Employee salary should be greater then zero");
         }
         if(employee.getHireDate() == null){
             throw new DBException("Employee hire date cannot be null");
@@ -116,7 +116,7 @@ public class EmployeeService {
             throw new DBException("Employee department id cannot be null");
         }
         if(employee.getDepartment().getId() <= 0){
-            throw new DBException("Employee department id should be greater tha  n zero");
+            throw new DBException("Employee department id should be greater then zero");
         }
         if(employee.getPosition() == null){
             throw new DBException("Employee position cannot be null");
@@ -125,7 +125,7 @@ public class EmployeeService {
             throw new DBException("Employee position id cannot be null");
         }
         if(employee.getPosition().getId() <= 0){
-            throw new DBException("Employee position id should be greater than zero");
+            throw new DBException("Employee position id should be greater then zero");
         }
     }
 
@@ -134,7 +134,7 @@ public class EmployeeService {
             throw new DBException("Employee id cannot be null");
         }
         if(id <= 0){
-            throw new DBException("Employee id should be greater than zero");
+            throw new DBException("Employee id should be greater then zero");
         }
     }
 }

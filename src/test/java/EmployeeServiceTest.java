@@ -73,7 +73,7 @@ public class EmployeeServiceTest {
         employee.setSalary(0.0);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
         String actualMessage = exception.getMessage();
-        String expectedMessage = "Employee salary should be greater than zero";
+        String expectedMessage = "Employee salary should be greater then zero";
         assertEquals(expectedMessage,actualMessage);
     }
 
@@ -111,7 +111,7 @@ public class EmployeeServiceTest {
         Department department = new Department(0, "Teste");
         employee.setDepartment(department);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
-        String expectedMessage = "Employee department id should be greater than zero";
+        String expectedMessage = "Employee department id should be greater then zero";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -140,7 +140,140 @@ public class EmployeeServiceTest {
         Position position = new Position(0, "Teste");
         employee.setPosition(position);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
-        String expectedMessage = "Employee position id should be greater than zero";
+        String expectedMessage = "Employee position id should be greater then zero";
         assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(){
+        Employee employee = null;
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String actualMessage = exception.getMessage();
+        String expectedMessage = "Employee cannot be null";
+        assertEquals(expectedMessage,actualMessage);
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenNameIsNull(){
+        employee = createValidEmployee();
+        employee.setName(null);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee name cannot be null";
+        assertEquals(expectedMessage,exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenNameIsEmpty(){
+        employee = createValidEmployee();
+        employee.setName("");
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee name cannot be empty";
+        assertEquals(expectedMessage,exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenSalaryIsNull(){
+        employee = createValidEmployee();
+        employee.setSalary(null);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee salary cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenSalaryIsZero(){
+        employee = createValidEmployee();
+        employee.setSalary(0.0);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String actualMessage = exception.getMessage();
+        String expectedMessage = "Employee salary should be greater then zero";
+        assertEquals(expectedMessage,actualMessage);
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenHireDateIsNull(){
+        employee = createValidEmployee();
+        employee.setHireDate(null);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee hire date cannot be null";
+        assertEquals(expectedMessage,exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenDepartmentIsNull(){
+        employee = createValidEmployee();
+        employee.setDepartment(null);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee department cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull(){
+        employee = createValidEmployee();
+        Department department = new Department(null, "Teste");
+        employee.setDepartment(department);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee department id cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenDepartmentIdIsZero(){
+        employee = createValidEmployee();
+        Department department = new Department(0, "Teste");
+        employee.setDepartment(department);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee department id should be greater then zero";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenPositionIsNull(){
+        employee = createValidEmployee();
+        employee.setPosition(null);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee position cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenPositionIdIsNull(){
+        employee = createValidEmployee();
+        Position position = new Position(null, "Teste");
+        employee.setPosition(position);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee position id cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenPositionIdIsZero(){
+        employee = createValidEmployee();
+        Position position = new Position(0, "Teste");
+        employee.setPosition(position);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee position id should be greater then zero";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(){
+        employee = createValidEmployee();
+        Integer id = null;
+        employee.setId(id);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee id cannot be null";
+        assertEquals(expectedMessage,exception.getMessage());
+    }
+
+    @Test
+    void updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZero(){
+        employee = createValidEmployee();
+        Integer id = 0;
+        employee.setId(id);
+        DBException exception = assertThrows(DBException.class, () -> service.update(employee));
+        String expectedMessage = "Employee id should be greater then zero";
+        assertEquals(expectedMessage,exception.getMessage());
     }
 }
