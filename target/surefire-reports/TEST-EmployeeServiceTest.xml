@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="EmployeeServiceTest" time="0.253" tests="33" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="EmployeeServiceTest" time="0.314" tests="34" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="BR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Users\lopes\.jdks\ms-21.0.11\bin"/>
-    <property name="sun.java.command" value="C:\Users\lopes\AppData\Local\Temp\surefire14513026870304666271\surefirebooter-20260713173945711_3.jar C:\Users\lopes\AppData\Local\Temp\surefire14513026870304666271 2026-07-13T17-39-45_617-jvmRun1 surefire-20260713173945711_1tmp surefire_0-20260713173945711_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\lopes\AppData\Local\Temp\surefire3619198800874420378\surefirebooter-20260713183028059_3.jar C:\Users\lopes\AppData\Local\Temp\surefire3619198800874420378 2026-07-13T18-30-27_970-jvmRun1 surefire-20260713183028059_1tmp surefire_0-20260713183028059_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\projetos-intelijj\sistema-de-rh\target\test-classes;C:\projetos-intelijj\sistema-de-rh\target\classes;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\lopes\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\lopes\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\lopes\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\lopes\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\lopes\.m2\repository\com\mysql\mysql-connector-j\9.7.0\mysql-connector-j-9.7.0.jar;C:\Users\lopes\.m2\repository\com\google\protobuf\protobuf-java\4.31.1\protobuf-java-4.31.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\lopes\AppData\Local\Temp\surefire14513026870304666271\surefirebooter-20260713173945711_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\lopes\AppData\Local\Temp\surefire3619198800874420378\surefirebooter-20260713183028059_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.11+10-LTS"/>
@@ -64,37 +64,38 @@
     <property name="maven.repo.local" value="C:\Users\lopes\.m2\repository"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="insertThrowsExceptionWithCorrectMessageWhenSalaryIsNull" classname="EmployeeServiceTest" time="0.164"/>
-  <testcase name="insertThrowsExceptionWithCorrectMessageWhenSalaryIsZero" classname="EmployeeServiceTest" time="0.002"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenDepartmentIsNull" classname="EmployeeServiceTest" time="0.002"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenNameIsNullOrEmpty(String, String)[1]" classname="EmployeeServiceTest" time="0.199"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenNameIsNullOrEmpty(String, String)[2]" classname="EmployeeServiceTest" time="0.002"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenSalaryIsNull" classname="EmployeeServiceTest" time="0.002"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenSalaryIsZero" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenDepartmentIsNull" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="updateThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="updateThrowsExceptionWithCorrectMessageWhenDepartmentIdIsZero" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="insertThrowsExceptionWithCorrectMessageWhenPositionIsNull" classname="EmployeeServiceTest" time="0.0"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenEmployeeIsNull" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenEmployeeIsNull" classname="EmployeeServiceTest" time="0.0"/>
   <testcase name="insertThrowsExceptionWithCorrectMessageWhenPositionIdIsNull" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="insertThrowsExceptionWithCorrectMessageWhenPositionIdIsZero" classname="EmployeeServiceTest" time="0.0"/>
-  <testcase name="insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull" classname="EmployeeServiceTest" time="0.0"/>
-  <testcase name="insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsZero" classname="EmployeeServiceTest" time="0.0"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenHireDateIsNull" classname="EmployeeServiceTest" time="0.0"/>
-  <testcase name="deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[1]" classname="EmployeeServiceTest" time="0.01"/>
-  <testcase name="deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[2]" classname="EmployeeServiceTest" time="0.0"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenPositionIdIsZero" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsZero" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenHireDateIsNull" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[1]" classname="EmployeeServiceTest" time="0.002"/>
+  <testcase name="deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[2]" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="updateThrowsExceptionWithCorrectMessageWhenNameIsEmpty" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenSalaryIsNull" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenSalaryIsZero" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenPositionIsNull" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenSalaryIsNull" classname="EmployeeServiceTest" time="0.0"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenSalaryIsZero" classname="EmployeeServiceTest" time="0.0"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenPositionIsNull" classname="EmployeeServiceTest" time="0.0"/>
   <testcase name="updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[1]" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[2]" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[2]" classname="EmployeeServiceTest" time="0.0"/>
   <testcase name="insertThrowsExceptionWithCorrectMessageWhenDepartmentIsNull" classname="EmployeeServiceTest" time="0.0"/>
-  <testcase name="findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull" classname="EmployeeServiceTest" time="0.0"/>
+  <testcase name="findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="updateThrowsExceptionWithCorrectMessageWhenPositionIdIsNull" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="updateThrowsExceptionWithCorrectMessageWhenPositionIdIsZero" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[1]" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer)[2]" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="updateThrowsExceptionWithCorrectMessageWhenNameIsNull" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull" classname="EmployeeServiceTest" time="0.0"/>
+  <testcase name="updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="insertThrowsExceptionWithCorrectMessageWhenEmployeeIsNull" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="insertThrowsExceptionWithCorrectMessageWhenNameIsNull" classname="EmployeeServiceTest" time="0.001"/>
   <testcase name="insertThrowsExceptionWithCorrectMessageWhenNameIsEmpty" classname="EmployeeServiceTest" time="0.001"/>
-  <testcase name="insertThrowsExceptionWithCorrectMessageWhenHireDateIsNull" classname="EmployeeServiceTest" time="0.001"/>
+  <testcase name="insertThrowsExceptionWithCorrectMessageWhenHireDateIsNull" classname="EmployeeServiceTest" time="0.0"/>
 </testsuite>

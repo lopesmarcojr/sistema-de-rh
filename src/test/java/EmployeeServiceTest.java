@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.sql.Date;
@@ -42,12 +43,12 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,actualMessage);
     }
 
-    @Test
-    void insertThrowsExceptionWithCorrectMessageWhenNameIsNull(){
+    @ParameterizedTest
+    @CsvSource(value = {"null, Employee name cannot be null", "'',Employee name cannot be empty"}, nullValues = "null")
+    void insertThrowsExceptionWithCorrectMessageWhenNameIsNullOrEmpty(String name, String expectedMessage){
         employee = createValidEmployee();
-        employee.setName(null);
+        employee.setName(name);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
-        String expectedMessage = "Employee name cannot be null";
         assertEquals(expectedMessage,exception.getMessage());
     }
 
