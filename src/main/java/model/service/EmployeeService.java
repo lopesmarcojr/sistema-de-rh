@@ -18,33 +18,17 @@ public class EmployeeService {
 
     public void update(Employee employee){
         validateEmployeeData(employee);
-        if(employee.getId() == null){
-            throw new DBException("Employee id cannot be null");
-        }
-        if(employee.getId() <= 0){
-            throw new DBException("Employee id should be greater than zero");
-        }
+        validateEmployeeId(employee.getId());
         employeeDao.update(employee);
     }
 
     public Employee findById(Integer id){
-        if(id == null){
-            throw new DBException("Id cannot be null");
-        }
-        if(id <= 0){
-            throw new DBException("Id should be greater than zero");
-        }
+        validateEmployeeId(id);
         return employeeDao.findById(id);
     }
 
     public void deleteById(Integer id){
-        if(id == null){
-            throw new DBException("Id cannot be null");
-        }
-        if(id <= 0){
-            throw new DBException("Id should be greater than zero");
-        }
-
+        validateEmployeeId(id);
         employeeDao.deleteById(id);
     }
 
@@ -132,7 +116,7 @@ public class EmployeeService {
             throw new DBException("Employee department id cannot be null");
         }
         if(employee.getDepartment().getId() <= 0){
-            throw new DBException("Employee department id should be greater then zero");
+            throw new DBException("Employee department id should be greater tha  n zero");
         }
         if(employee.getPosition() == null){
             throw new DBException("Employee position cannot be null");
@@ -141,11 +125,16 @@ public class EmployeeService {
             throw new DBException("Employee position id cannot be null");
         }
         if(employee.getPosition().getId() <= 0){
-            throw new DBException("Employee position id should be greater then zero");
+            throw new DBException("Employee position id should be greater than zero");
         }
     }
 
-    private void validadeEmployeeId(Integer id){
-
+    private void validateEmployeeId(Integer id){
+        if(id == null){
+            throw new DBException("Employee id cannot be null");
+        }
+        if(id <= 0){
+            throw new DBException("Employee id should be greater than zero");
+        }
     }
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestTemplate;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,13 +25,14 @@ public class EmployeeServiceTest {
     private Employee createValidEmployee(){
         Department department = new Department(1,"Teste");
         Position position = new Position(1,"Teste");
-        Date date = new Date(2026,07,10);
+        LocalDate dataLocal = LocalDate.of(2026,07,10);
+        Date date = Date.valueOf(dataLocal);
         Employee employee = new Employee(1, "Teste", 0.1, date, department, position);
         return employee;
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(){
+    void insertThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(){
         Employee employee = null;
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
         String actualMessage = exception.getMessage();
@@ -39,7 +41,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenNameIsNull(){
+    void insertThrowsExceptionWithCorrectMessageWhenNameIsNull(){
         employee = createValidEmployee();
         employee.setName(null);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
@@ -48,7 +50,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenNameIsEmpty(){
+    void insertThrowsExceptionWithCorrectMessageWhenNameIsEmpty(){
         employee = createValidEmployee();
         employee.setName("");
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
@@ -57,7 +59,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenSalaryIsnUll(){
+    void insertThrowsExceptionWithCorrectMessageWhenSalaryIsNull(){
         employee = createValidEmployee();
         employee.setSalary(null);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
@@ -66,7 +68,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenSalaryIsZero(){
+    void insertThrowsExceptionWithCorrectMessageWhenSalaryIsZero(){
         employee = createValidEmployee();
         employee.setSalary(0.0);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
@@ -76,7 +78,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenHireDateIsNull(){
+    void insertThrowsExceptionWithCorrectMessageWhenHireDateIsNull(){
         employee = createValidEmployee();
         employee.setHireDate(null);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
@@ -85,7 +87,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenDepartmentIsNull(){
+    void insertThrowsExceptionWithCorrectMessageWhenDepartmentIsNull(){
         employee = createValidEmployee();
         employee.setDepartment(null);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
@@ -94,7 +96,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull(){
+    void insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsNull(){
         employee = createValidEmployee();
         Department department = new Department(null, "Teste");
         employee.setDepartment(department);
@@ -104,27 +106,26 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsZero(){
+    void insertThrowsExceptionWithCorrectMessageWhenDepartmentIdIsZero(){
         employee = createValidEmployee();
         Department department = new Department(0, "Teste");
         employee.setDepartment(department);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
-        String expectedMessage = "Employee department id should be greater then zero";
+        String expectedMessage = "Employee department id should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenPositionIsNull(){
+    void insertThrowsExceptionWithCorrectMessageWhenPositionIsNull(){
         employee = createValidEmployee();
-        Position position = null;
-        employee.setPosition(position);
+        employee.setPosition(null);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
         String expectedMessage = "Employee position cannot be null";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenPositionIdIsNull(){
+    void insertThrowsExceptionWithCorrectMessageWhenPositionIdIsNull(){
         employee = createValidEmployee();
         Position position = new Position(null, "Teste");
         employee.setPosition(position);
@@ -134,12 +135,12 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void insertThrowsExceptionWithCorrectMessageWhenPositionIdIsZero(){
+    void insertThrowsExceptionWithCorrectMessageWhenPositionIdIsZero(){
         employee = createValidEmployee();
         Position position = new Position(0, "Teste");
         employee.setPosition(position);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
-        String expectedMessage = "Employee position id should be greater then zero";
+        String expectedMessage = "Employee position id should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());
     }
 }
