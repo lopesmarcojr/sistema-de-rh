@@ -6,6 +6,8 @@ import model.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -73,7 +75,7 @@ public class EmployeeServiceTest {
         employee.setSalary(0.0);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
         String actualMessage = exception.getMessage();
-        String expectedMessage = "Employee salary should be greater then zero";
+        String expectedMessage = "Employee salary should be greater than zero";
         assertEquals(expectedMessage,actualMessage);
     }
 
@@ -111,7 +113,7 @@ public class EmployeeServiceTest {
         Department department = new Department(0, "Teste");
         employee.setDepartment(department);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
-        String expectedMessage = "Employee department id should be greater then zero";
+        String expectedMessage = "Employee department id should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -140,7 +142,7 @@ public class EmployeeServiceTest {
         Position position = new Position(0, "Teste");
         employee.setPosition(position);
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
-        String expectedMessage = "Employee position id should be greater then zero";
+        String expectedMessage = "Employee position id should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -186,7 +188,7 @@ public class EmployeeServiceTest {
         employee.setSalary(0.0);
         DBException exception = assertThrows(DBException.class, () -> service.update(employee));
         String actualMessage = exception.getMessage();
-        String expectedMessage = "Employee salary should be greater then zero";
+        String expectedMessage = "Employee salary should be greater than zero";
         assertEquals(expectedMessage,actualMessage);
     }
 
@@ -224,7 +226,7 @@ public class EmployeeServiceTest {
         Department department = new Department(0, "Teste");
         employee.setDepartment(department);
         DBException exception = assertThrows(DBException.class, () -> service.update(employee));
-        String expectedMessage = "Employee department id should be greater then zero";
+        String expectedMessage = "Employee department id should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -253,7 +255,7 @@ public class EmployeeServiceTest {
         Position position = new Position(0, "Teste");
         employee.setPosition(position);
         DBException exception = assertThrows(DBException.class, () -> service.update(employee));
-        String expectedMessage = "Employee position id should be greater then zero";
+        String expectedMessage = "Employee position id should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -267,13 +269,13 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
-    @Test
-    void updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZero(){
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1})
+    void updateThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer id){
         employee = createValidEmployee();
-        Integer id = 0;
         employee.setId(id);
         DBException exception = assertThrows(DBException.class, () -> service.update(employee));
-        String expectedMessage = "Employee id should be greater then zero";
+        String expectedMessage = "Employee id should be greater than zero";
         assertEquals(expectedMessage,exception.getMessage());
     }
 
@@ -285,11 +287,11 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
-    @Test
-    void findByIdThrowsExceptionWithCorrectMessageWhenEmoployeeIdIsZeroOrNegative(){
-        Integer id = 0;
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1})
+    void findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer id){
         DBException exception = assertThrows(DBException.class, () -> service.findById(id));
-        String expectedMessage = "Employee id should be greater then zero";
+        String expectedMessage = "Employee id should be greater than zero";
         assertEquals(expectedMessage,exception.getMessage());
     }
 
@@ -301,11 +303,11 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
-    @Test
-    void deleteThrowsExceptionWithCorrectMessageWhenEmoployeeIdIsZero(){
-        Integer id = 0;
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1})
+    void deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsZeroOrNegative(Integer id){
         DBException exception = assertThrows(DBException.class, () -> service.deleteById(id));
-        String expectedMessage = "Employee should be greater then zero";
+        String expectedMessage = "Employee id should be greater than zero";
         assertEquals(expectedMessage,exception.getMessage());
     }
 }
