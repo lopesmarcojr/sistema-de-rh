@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.sql.Date;
@@ -34,9 +36,9 @@ public class EmployeeServiceTest {
         return employee;
     }
 
-    @Test
-    void insertThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(){
-        Employee employee = null;
+    @ParameterizedTest
+    @NullSource
+    void insertThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(Employee employee){
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
         String actualMessage = exception.getMessage();
         String expectedMessage = "Employee cannot be null";
@@ -147,9 +149,9 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
-    @Test
-    void updateThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(){
-        Employee employee = null;
+    @ParameterizedTest
+    @NullSource
+    void updateThrowsExceptionWithCorrectMessageWhenEmployeeIsNull(Employee employee){
         DBException exception = assertThrows(DBException.class, () -> service.update(employee));
         String actualMessage = exception.getMessage();
         String expectedMessage = "Employee cannot be null";
@@ -280,9 +282,9 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
-    @Test
-    void findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(){
-        Integer id = null;
+    @ParameterizedTest
+    @NullSource
+    void findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(Integer id){
         DBException exception = assertThrows(DBException.class, () -> service.findById(id));
         String expectedMessage = "Employee id cannot be null";
         assertEquals(expectedMessage,exception.getMessage());
@@ -296,9 +298,9 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
-    @Test
-    void deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(){
-        Integer id = null;
+    @ParameterizedTest
+    @NullSource
+    void deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(Integer id){
         DBException exception = assertThrows(DBException.class, () -> service.deleteById(id));
         String expectedMessage = "Employee id cannot be null";
         assertEquals(expectedMessage,exception.getMessage());
