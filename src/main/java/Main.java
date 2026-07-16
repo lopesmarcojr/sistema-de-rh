@@ -9,7 +9,7 @@ public class Main {
 
    /* SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     System.out.println("Teste de inserção de novo empregado");*/
-        EmployeeService employeeService = new EmployeeService();
+        //EmployeeService employeeService = new EmployeeService();
     /*Employee employee = new Employee();
     employee.setName("Roseli Teixeia Rosa");
     employee.setSalary(6581.4);

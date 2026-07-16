@@ -1,4 +1,5 @@
 import db.DBException;
+import model.dao.EmployeeDao;
 import model.entities.Department;
 import model.entities.Employee;
 import model.entities.Position;
@@ -16,15 +17,20 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class EmployeeServiceTest {
+
+    EmployeeDao employeeDao;
 
     EmployeeService service;
     Employee employee;
 
     @BeforeEach
     void setUp(){
-        service = new EmployeeService();
+         employeeDao = mock(EmployeeDao.class);
+         service = new EmployeeService(employeeDao);
     }
 
     private Employee createValidEmployee(){
@@ -147,6 +153,13 @@ public class EmployeeServiceTest {
         DBException exception = assertThrows(DBException.class, () -> service.insert(employee));
         String expectedMessage = "Employee position id should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void insertShouldCallEmployeeDaoInsertWhenEmployeeIsValid(){
+        employee = createValidEmployee();
+        service.insert(employee);
+        verify(employeeDao).insert(employee);
     }
 
     @ParameterizedTest
