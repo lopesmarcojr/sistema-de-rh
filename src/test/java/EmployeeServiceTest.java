@@ -318,6 +318,13 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
+    @Test
+    void findByIdShouldCallEmployeeDaoFindByIdWhenIdIsValid(){
+        Integer id = 1;
+        service.findById(id);
+        verify(employeeDao).findById(id);
+    }
+
     @ParameterizedTest
     @NullSource
     void deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(Integer id){
