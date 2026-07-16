@@ -28,10 +28,11 @@ public class Main {
         System.out.println(e);
     }*/
 
-        System.out.println("Teste por filtros");
+        /*System.out.println("Teste por filtros");
         List<Employee> emps = employeeService.findPageByFilters("Informatica",null,null,1,5);
         for(Employee e : emps){
             System.out.println(e);
         }
+    }*/
     }
 }

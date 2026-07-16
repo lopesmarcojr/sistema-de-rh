@@ -295,6 +295,13 @@ public class EmployeeServiceTest {
         assertEquals(expectedMessage,exception.getMessage());
     }
 
+    @Test
+    void updateShouldCallEmployeeDaoWhenEmployeeIsValid(){
+        employee = createValidEmployee();
+        service.update(employee);
+        verify(employeeDao).update(employee);
+    }
+
     @ParameterizedTest
     @NullSource
     void findByIdThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(Integer id){
