@@ -340,4 +340,11 @@ public class EmployeeServiceTest {
         String expectedMessage = "Employee id should be greater than zero";
         assertEquals(expectedMessage,exception.getMessage());
     }
+
+    @Test
+    void deleteByIdShouldCallEmployeeDaoWhenIdIsValid(){
+        Integer id = 1;
+        service.deleteById(id);
+        verify(employeeDao).deleteById(id);
+    }
 }
