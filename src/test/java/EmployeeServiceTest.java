@@ -17,8 +17,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class EmployeeServiceTest {
 
@@ -324,7 +323,15 @@ public class EmployeeServiceTest {
         service.findById(id);
         verify(employeeDao).findById(id);
     }
-
+    @Test
+    void findByIdShouldReturnEmployeeReturnedByDao(){
+        Integer id = 1;
+        employee = createValidEmployee();
+        when(employeeDao.findById(id)).thenReturn(employee);
+        Employee result = service.findById(id);
+        assertEquals(employee,result);
+        verify(employeeDao).findById(id);
+    }
     @ParameterizedTest
     @NullSource
     void deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(Integer id){
@@ -347,4 +354,5 @@ public class EmployeeServiceTest {
         service.deleteById(id);
         verify(employeeDao).deleteById(id);
     }
+
 }
