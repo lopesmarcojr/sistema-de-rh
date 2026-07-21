@@ -332,6 +332,17 @@ public class EmployeeServiceTest {
         assertEquals(employee,result);
         verify(employeeDao).findById(id);
     }
+
+    @Test
+    void findByIdShouldPropagateExceptionWhenDaoThrowsException(){
+        Integer id = 1;
+        when(employeeDao.findById(id)).thenThrow(new DBException("Database error"));
+        DBException exception = assertThrows(DBException.class, ()-> service.findById(id));
+        String expectedMessage = "Database error";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao).findById(id);
+    }
+
     @ParameterizedTest
     @NullSource
     void deleteThrowsExceptionWithCorrectMessageWhenEmployeeIdIsNull(Integer id){
