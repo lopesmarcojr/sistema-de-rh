@@ -15,6 +15,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -364,6 +366,24 @@ public class EmployeeServiceTest {
         Integer id = 1;
         service.deleteById(id);
         verify(employeeDao).deleteById(id);
+    }
+
+    @Test
+    void findAllShouldReturnListReturnedByEmployeeDao(){
+        List<Employee> employees = List.of(createValidEmployee());
+        when(employeeDao.findAll()).thenReturn(employees);
+        List<Employee> result = service.findAll();
+        assertEquals(employees,result);
+        verify(employeeDao).findAll();
+    }
+
+    @Test
+    void findAllShouldReturnEmptyListWhenDaoReturnsEmptyList(){
+        List<Employee> employees = Collections.emptyList();
+        when(employeeDao.findAll()).thenReturn(employees);
+        List<Employee> result = service.findAll();
+        assertEquals(employees,result);
+        verify(employeeDao).findAll();
     }
 
 }
