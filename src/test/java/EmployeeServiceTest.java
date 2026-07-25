@@ -386,4 +386,22 @@ public class EmployeeServiceTest {
         verify(employeeDao).findAll();
     }
 
+    @Test
+    void countEmployeesShouldReturnEmployeeCountReturnedByDao(){
+        Integer employees = 1;
+        when(employeeDao.countEmployees()).thenReturn(employees);
+        Integer result = service.countEmployees();
+        assertEquals(employees,result);
+        verify(employeeDao).countEmployees();
+    }
+
+    @Test
+    void countEmployeesShouldReturnZeroWhenDaoReturnsZero(){
+        Integer employees = 0;
+        when(employeeDao.countEmployees()).thenReturn(employees);
+        Integer result = service.countEmployees();
+        assertEquals(employees,result);
+        verify(employeeDao).countEmployees();
+    }
+
 }
