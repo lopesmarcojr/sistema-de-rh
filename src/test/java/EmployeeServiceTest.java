@@ -404,4 +404,25 @@ public class EmployeeServiceTest {
         verify(employeeDao).countEmployees();
     }
 
+    @Test
+    void findPageShouldReturnEmployeesReturnedByDao(){
+        List<Employee> employees = List.of(createValidEmployee());
+        Integer page = 1;
+        Integer pageSize = 5;
+        when(employeeDao.findPage(page, pageSize)).thenReturn(employees);
+        List<Employee> result = service.findPage(page, pageSize);
+        assertEquals(employees,result);
+        verify(employeeDao).findPage(page, pageSize);
+    }
+
+    @Test
+    void findPageShoudlThrowExceptionWhenPageIsNull(){
+        Integer page = null;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page number cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPage(page, pageSize);
+    }
+
 }
