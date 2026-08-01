@@ -418,11 +418,42 @@ public class EmployeeServiceTest {
     @Test
     void findPageShoudlThrowExceptionWhenPageIsNull(){
         Integer page = null;
-        Integer pageSize = 5;
+        int pageSize = 5;
         DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
         String expectedMessage = "Page number cannot be null";
         assertEquals(expectedMessage, exception.getMessage());
-        verify(employeeDao, never()).findPage(page, pageSize);
+        verify(employeeDao, never()).findPage(anyInt(), anyInt());
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageSizeIsNull(){
+        int page = 1;
+        Integer pageSize = null;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page size cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPage(anyInt(), anyInt());
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageIsLessThanOrEqualToZero(){
+        int page = 0;
+        int pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page number should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPage(anyInt(), anyInt());
+        
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageSizeIsLessThanOrEqualToZero(){
+        int page = 1;
+        int pageSize = 0;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page size should be greater than zero";
+        assertEquals(expectedMessage,exception.getMessage());
+        verify(employeeDao, never()).findPage(anyInt(), anyInt());
     }
 
 }
