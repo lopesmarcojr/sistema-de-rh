@@ -81,7 +81,7 @@ public class EmployeeService {
     }
     private void validateFilters(String department, String position, Double salary){
         if(department == null && position == null && salary == null) {
-            throw new DBException("At least one of the parameters must be valid!");
+            throw new DBException("At least one of the parameters should be valid");
         }
         if(department != null && department.trim().isEmpty()){
             throw new DBException("Department cannot be empty");

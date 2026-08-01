@@ -456,4 +456,74 @@ public class EmployeeServiceTest {
         verify(employeeDao, never()).findPage(anyInt(), anyInt());
     }
 
+    @Test
+    void findByFiltersShouldReturnEmployeesReturnedByDao(){
+        List<Employee> employees = List.of(createValidEmployee());
+        String department = "TI";
+        String position = null;
+        Double salary = null;
+        when(employeeDao.findByFilters(department, position, salary)).thenReturn(employees);
+        List<Employee> result = service.findByFilters(department, position, salary);
+        assertEquals(employees, result);
+        verify(employeeDao).findByFilters(department, position, salary);
+    }
+
+    @Test
+    void findByFiltersShouldReturnEmptyListWhenDaoReturnsEmptyList(){
+        List<Employee> employees = Collections.emptyList();
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        when(employeeDao.findByFilters(department, position, salary)).thenReturn(employees);
+        List<Employee> result = service.findByFilters(department, position, salary);
+        assertEquals(employees,result);
+        verify(employeeDao).findByFilters(department, position, salary);
+    }
+
+    @Test
+    void findByFiltersShouldThrowExceptionWhenAllFiltersAreNull(){
+        String department = null;
+        String position = null;
+        Double salary = null;
+        DBException exception = assertThrows(DBException.class, () -> service.findByFilters(department, position, salary));
+        String expectedMessage = "At least one of the parameters should be valid";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findByFilters(department, position, salary);
+    }
+
+    @Test
+    void findByFiltersShouldThrowExceptionWhenDepartmentIsEmpty(){
+        String department = "";
+        String position = "a";
+        Double salary = 0.1;
+        DBException exception = assertThrows(DBException.class, () -> service.findByFilters(department, position, salary));
+        String expectedMessage = "Department cannot be empty";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findByFilters(department, position, salary);
+    }
+
+    @Test
+    void findByFiltersShouldThrowExceptionWhenPositionIsEmpty(){
+        String department = "a";
+        String position = "";
+        Double salary = 0.1;
+        DBException exception = assertThrows(DBException.class, () -> service.findByFilters(department, position, salary));
+        String expectedMessage = "Position cannot be empty";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findByFilters(department, position, salary);
+    }
+
+    @Test
+    void findByFiltersShouldThrowExceptionWhenSalaryIsLessThanOrEqualToZero(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.0;
+        DBException exception = assertThrows(DBException.class, () -> service.findByFilters(department, position, salary));
+        String expectedMessage = "Salary should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findByFilters(department, position, salary);
+    }
+
+
+
 }
