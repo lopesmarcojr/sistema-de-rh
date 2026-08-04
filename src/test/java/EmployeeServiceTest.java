@@ -524,6 +524,62 @@ public class EmployeeServiceTest {
         verify(employeeDao, never()).findByFilters(department, position, salary);
     }
 
+    @Test
+    void countEmployeeByFiltersShouldReturnEmployeeByEmployeeDao(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        Integer employeeCount = 5;
+        when(employeeDao.countEmployeeByFilters(department, position, salary)).thenReturn(employeeCount);
+        Integer result = service.countEmployeeByFilters(department, position, salary);
+        assertEquals(employeeCount,result);
+        verify(employeeDao).countEmployeeByFilters(department, position,salary);
+    }
+
+    @Test
+    void countEmployeeByFiltersShouldReturnZeroWhenDaoReturnsZero(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        int empCount = 0;
+        when(employeeDao.countEmployeeByFilters(department, position, salary)).thenReturn(empCount);
+        Integer result = service.countEmployeeByFilters(department, position, salary);
+        assertEquals(empCount, result);
+        verify(employeeDao).countEmployeeByFilters(department, position, salary);
+    }
+
+    @Test
+    void countEmployeeByFiltersShouldThrowExceptionWhenDepartmentIsEmpty(){
+        String department = "";
+        String position = "a";
+        Double salary = 0.1;
+        DBException exception = assertThrows(DBException.class, () -> service.countEmployeeByFilters(department, position, salary));
+        String expectedMessage = "Department cannot be empty";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).countEmployeeByFilters(any(), any(), any());
+    }
+
+    @Test
+    void countEmployeeByFiltersShouldThrowExceptionWhenPositionIsEmpty(){
+        String department = "a";
+        String position = "";
+        Double salary = 0.1;
+        DBException exception = assertThrows(DBException.class, () -> service.countEmployeeByFilters(department, position, salary));
+        String expectedMessage = "Position cannot be empty";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).countEmployeeByFilters(any(),any(),any());
+    }
+
+    @Test
+    void countEmployeeByFiltersShouldThrowExceptionWhenSalaryIsLessOrEqualToZero(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.0;
+        DBException exception = assertThrows(DBException.class, () -> service.countEmployeeByFilters(department, position, salary));
+        String expectedMessage = "Salary should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).countEmployeeByFilters(any(),any(),any());
+    }
 
 
 }
