@@ -581,5 +581,16 @@ public class EmployeeServiceTest {
         verify(employeeDao, never()).countEmployeeByFilters(any(),any(),any());
     }
 
+    @Test
+    void countEmployeeByFiltersShouldThrowExceptionWhenAllParametersAreNull(){
+        String department = null;
+        String position = null;
+        Double salary = null;
+        DBException exception = assertThrows(DBException.class, () -> service.countEmployeeByFilters(department, position, salary));
+        String expectedMessage = "At least one of the parameters should be valid";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).countEmployeeByFilters(any(), any(), any());
+    }
+
 
 }
