@@ -592,5 +592,135 @@ public class EmployeeServiceTest {
         verify(employeeDao, never()).countEmployeeByFilters(any(), any(), any());
     }
 
+    @Test
+    void findPageByFiltersShouldReturnEmployeesReturnedByDao(){
+        List<Employee> employees = List.of(createValidEmployee());
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        Integer page = 1;
+        Integer pageSize = 5;
+        when(employeeDao.findPageByFilters(department, position, salary, page, pageSize)).thenReturn(employees);
+        List<Employee> result = service.findPageByFilters(department, position, salary, page, pageSize);
+        assertEquals(employees, result);
+        verify(employeeDao).findPageByFilters(department, position, salary, page, pageSize);
+    }
 
+    @Test
+    void findPageByFiltersShouldReturnEmptyListWhenDaoReturnsEmptyList(){
+        List<Employee> employee = Collections.emptyList();
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        Integer page = 1;
+        Integer pageSize = 5;
+        when(employeeDao.findPageByFilters(department, position, salary, page, pageSize)).thenReturn(employee);
+        List<Employee> result = service.findPageByFilters(department, position, salary, page, pageSize);
+        assertEquals(employee, result);
+        verify(employeeDao).findPageByFilters(department, position, salary, page, pageSize);
+    }
+
+    @Test
+    void findPageByFiltersShouldThrowExceptionWhenAllParametersAreNull(){
+        String department = null;
+        String position = null;
+        Double salary = null;
+        Integer page = 1;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "At least one of the parameters should be valid";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary,page,pageSize);
+    }
+
+    @Test
+    void findBageByFiltersShouldThrowExceptionWhenDepartmentIsEmpty(){
+        String department = "";
+        String position = "a";
+        Double salary = 0.1;
+        Integer page = 1;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "Department cannot be empty";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary, page, pageSize);
+    }
+
+    @Test
+    void findPageByFiltersShouldThrowExceptionWhenPositionIsEmpty(){
+        String department = "a";
+        String position = "";
+        Double salary = 0.1;
+        Integer page = 1;
+        Integer pageSize = 1;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "Position cannot be empty";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary, page, pageSize);
+    }
+
+    @Test
+    void findPageByFiltersShouldThrowExceptionWhenSalaryIsLessOrEqualToZero(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.0;
+        Integer page = 1;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "Salary should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary, page, pageSize);
+    }
+
+    @Test
+    void findPageByFiltersShouldThrowExceptionWhenPageNumberAreNull(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        Integer page = null;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "Page number cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary, page, pageSize);
+    }
+
+    @Test
+    void findPageByFiltersShouldThrowExceptionWhenPageNumberAreLessOrEqualToZero(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        Integer page = 0;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "Page number should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary, page, pageSize);
+    }
+
+    @Test
+    void findPageByFiltersShouldThrowExceptionWhenPageSizeAreNull(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        Integer page = 1;
+        Integer pageSize = null;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "Page size cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary, page, pageSize);
+    }
+
+    @Test
+    void findPageByFiltersShouldThrowExceptionWhenPageSizeAreLessOrEqualToZero(){
+        String department = "a";
+        String position = "a";
+        Double salary = 0.1;
+        Integer page = 1;
+        Integer pageSize = 0;
+        DBException exception = assertThrows(DBException.class, () -> service.findPageByFilters(department, position, salary, page, pageSize));
+        String expectedMessage = "Page size should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(employeeDao, never()).findPageByFilters(department, position, salary, page, pageSize);
+    }
 }
