@@ -118,6 +118,7 @@ public class PositionDaoJDBC implements PositionDao {
         }
     }
 
+
     public Position instantiantePosition(ResultSet rs) throws SQLException{
         Position position = new Position();
         position.setId(rs.getInt("Id"));

@@ -673,7 +673,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void findPageByFiltersShouldThrowExceptionWhenPageNumberAreNull(){
+    void findPageByFiltersShouldThrowExceptionWhenPageNumberIsNull(){
         String department = "a";
         String position = "a";
         Double salary = 0.1;
@@ -699,7 +699,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void findPageByFiltersShouldThrowExceptionWhenPageSizeAreNull(){
+    void findPageByFiltersShouldThrowExceptionWhenPageSizeIsNull(){
         String department = "a";
         String position = "a";
         Double salary = 0.1;

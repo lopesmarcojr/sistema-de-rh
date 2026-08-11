@@ -129,6 +129,50 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
     }
 
+    @Override
+    public List<Department> findPage(int page, int pageSize) {
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        int offset = (page - 1) * pageSize;
+        try {
+            st = conn.prepareStatement("SELECT Id, Name FROM Department ORDER BY Id LIMIT ? OFFSET ?");
+            st.setInt(1, pageSize);
+            st.setInt(2, offset);
+            rs = st.executeQuery();
+            List<Department> departments = new ArrayList<>();
+            while(rs.next()){
+                departments.add(instantiateDepartment(rs));
+            }
+            return departments;
+        } catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public Integer countDepartment() {
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("SELECT COUNT(*) as TotalDepartment FROM department");
+            rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getInt("TotalDepartment");
+            }
+            return 0;
+        }
+        catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }
+        finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
     public Department instantiateDepartment(ResultSet rs) throws SQLException{
         Department department = new Department();
         department.setId(rs.getInt("Id"));
