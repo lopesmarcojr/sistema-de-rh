@@ -9,7 +9,11 @@ import java.util.List;
 
 public class DepartmentService {
 
-    private DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+    private DepartmentDao departmentDao;
+
+    public DepartmentService(DepartmentDao departmentDao){
+        this.departmentDao = departmentDao;
+    }
 
     public void insert(Department department){
         if(department == null){
