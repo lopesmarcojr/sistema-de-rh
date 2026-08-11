@@ -2,9 +2,11 @@ package model.dao.impl;
 
 import db.DB;
 import db.DBException;
+import model.entities.Department;
 import model.entities.Position;
 import model.dao.PositionDao;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -116,6 +118,47 @@ public class PositionDaoJDBC implements PositionDao {
             DB.closePreparedStatement(st);
             DB.closeResultSet(rs);
         }
+    }
+
+    @Override
+    public List<Position> findPage(int page, int pageSize) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int offset = (page - 1) * pageSize;
+        try {
+            st = conn.prepareStatement("SELECT Id, Name FROM position ORDER BY Id LIMIT ? OFFSET ?");
+            st.setInt(1, pageSize);
+            st.setInt(2, offset);
+            rs = st.executeQuery();
+            List<Position> positions = new ArrayList<>();
+            while(rs.next()){
+                positions.add(instantiantePosition(rs));
+            }
+            return positions;
+        }catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public Integer countPosition() {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+                st = conn.prepareStatement("SELECT COUNT(*) as TotalPositions FROM position");
+                rs = st.executeQuery();
+                if(rs.next())
+                    return rs.getInt("TotalPositions");
+        } catch (SQLException e){
+            throw new DBException(e.getMessage());
+        }finally {
+            DB.closePreparedStatement(st);
+            DB.closeResultSet(rs);
+        }
+        return 0;
     }
 
 

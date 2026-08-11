@@ -11,5 +11,7 @@ public interface PositionDao {
     void deleteById(Integer id);
     Position findById(Integer id);
     List<Position> findAll();
+    List<Position> findPage(int page, int pageSize);
+    Integer countPosition();
 
 }
