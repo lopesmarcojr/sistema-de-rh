@@ -65,4 +65,28 @@ public class PositionService {
     public List<Position > findAll(){
         return positionDao.findAll();
     }
+
+    public Integer countPosition(){
+        return positionDao.countPosition();
+    }
+
+    public List<Position> findPage(int page, int pageSize){
+        validatePagination(page, pageSize);
+        return positionDao.findPage(page, pageSize);
+    }
+
+    public void validatePagination(Integer page, Integer pageSize){
+        if(page == null){
+            throw new DBException("Page number cannot be null");
+        }
+        if(page <= 0){
+            throw new DBException("Page number should be greater than zero");
+        }
+        if(pageSize == null){
+            throw new DBException("Page size cannot be null");
+        }
+        if(pageSize <= 0){
+            throw new DBException("Page size should be greater than zero");
+        }
+    }
 }
