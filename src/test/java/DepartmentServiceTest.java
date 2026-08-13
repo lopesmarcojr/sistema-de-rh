@@ -9,6 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,6 +67,97 @@ public class DepartmentServiceTest {
         assertEquals(departments, result);
         verify(departmentDao).findAll();
     }
+
+    @Test
+    void findAllShouldReturnEmptyListWhenDepartmentDaoReturnsEmptyList(){
+        List<Department> departments = Collections.emptyList();
+        when(departmentDao.findAll()).thenReturn(departments);
+        List<Department> result = service.findAll();
+        assertEquals(departments, result);
+        verify(departmentDao).findAll();
+    }
+
+    @Test
+    void countDepartmentShouldReturnCountReturnedByDepartmentDao(){
+        Integer count = 1;
+        when(departmentDao.countDepartment()).thenReturn(count);
+        Integer result = service.countDepartment();
+        assertEquals(count, result);
+        verify(departmentDao).countDepartment();
+    }
+
+    @Test
+    void countDepartmentShouldReturnZeroWhenDaoReturnZero(){
+        Integer count = 0;
+        when(departmentDao.countDepartment()).thenReturn(count);
+        Integer result = service.countDepartment();
+        assertEquals(count, result);
+        verify(departmentDao).countDepartment();
+    }
+
+    @Test
+    void findPageShouldReturnPageReturnedByDepartmentDao(){
+        List<Department> departments = List.of(createValidDepartment());
+        int page = 1;
+        int pageSize = 5;
+        when(departmentDao.findPage(page, pageSize)).thenReturn(departments);
+        List<Department> result = service.findPage(page, pageSize);
+        assertEquals(departments, result);
+        verify(departmentDao).findPage(page, pageSize);
+    }
+
+    @Test
+    void findPageShouldReturnEmptyListReturnedByDepartmentDao(){
+        List<Department> departments = Collections.emptyList();
+        int page = 1;
+        int pageSize = 5;
+        when(departmentDao.findPage(page, pageSize)).thenReturn(departments);
+        List<Department> result = service.findPage(page, pageSize);
+        assertEquals(departments, result);
+        verify(departmentDao).findPage(page,pageSize);
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageIsNull(){
+        Integer page = null;
+        int pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page number cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao, never()).findPage(anyInt(), anyInt());
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageIsLessOrEqualToZero(){
+        Integer page = 0;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page number should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao, never()).findPage(page, pageSize);
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageSizeIsNull(){
+        int page = 1;
+        Integer pageSize = null;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page size cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao, never()).findPage(anyInt(), anyInt());
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageSizeIsLessOrEqualToZero(){
+        int page = 1;
+        int pageSize = 0;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page size should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao, never()).findPage(page, pageSize);
+    }
+
+
 
 
 

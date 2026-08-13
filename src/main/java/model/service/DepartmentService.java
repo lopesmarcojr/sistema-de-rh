@@ -74,7 +74,7 @@ public class DepartmentService {
         return departmentDao.countDepartment();
     }
 
-    public List<Department> findPage(int page, int pageSize){
+    public List<Department> findPage(Integer page, Integer pageSize){
         validatePagination(page, pageSize);
         return departmentDao.findPage(page, pageSize);
     }
