@@ -64,6 +64,7 @@ public class DepartmentService {
         if(id <= 0){
             throw new DBException("Id should be greater than zero");
         }
+        departmentDao.deleteById(id);
     }
 
     public List<Department> findAll(){

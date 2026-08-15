@@ -96,6 +96,32 @@ public class DepartmentServiceTest {
         verify(departmentDao).findById(id);
     }
 
+    @Test
+    void deleteShouldCallDepartmentDaoWhenIdIsValid(){
+        Integer id = 1;
+        service.deleteById(id);
+        verify(departmentDao).deleteById(id);
+    }
+
+    @ParameterizedTest
+    @NullSource
+    void deleteByIdShouldThrowExceptionWhenIdIsNull(Integer id){
+        DBException exception = assertThrows(DBException.class, () -> service.deleteById(id));
+        String expectedMessage = "Id cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao, never()).deleteById(id);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1})
+    void deleteByIdShouldThrowExceptionWhenIdIsLessOrEqualToZero(Integer id){
+        DBException exception = assertThrows(DBException.class, () -> service.deleteById(id));
+        String expectedMessage = "Id should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao, never()).deleteById(id);
+    }
+
+
     @ParameterizedTest
     @NullSource
     void findByIdShouldThrowExceptionWhenIdIsNull(Integer id){
