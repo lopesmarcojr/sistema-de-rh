@@ -9,7 +9,11 @@ import java.util.List;
 
 public class PositionService {
 
-    private PositionDao positionDao = DaoFactory.createPositionDao();
+    private PositionDao positionDao;
+
+    public PositionService(PositionDao positionDao){
+        this.positionDao = positionDao;
+    }
 
     public void insert(Position position){
         if(position == null){
