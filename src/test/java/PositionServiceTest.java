@@ -1,9 +1,17 @@
+import db.DBException;
 import model.dao.PositionDao;
+import model.entities.Department;
 import model.entities.Position;
 import model.service.PositionService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullSource;
 
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 public class PositionServiceTest {
 
@@ -20,5 +28,55 @@ public class PositionServiceTest {
     private Position createValidPosition(){
         Position position = new Position(1,"Test");
         return position;
+    }
+
+    @Test
+    void insertShouldCallPositionDaoWhenPositionIsValid(){
+        position = createValidPosition();
+        service.insert(position);
+        verify(positionDao).insert(position);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"null, Position cannot be null"}, nullValues = "null")
+    void insertShouldThrowExceptionWhenPositionIsNull(Position position, String expectedMessage){
+        DBException exception = assertThrows(DBException.class, () -> service.insert(position));
+        assertEquals(expectedMessage,exception.getMessage());
+        verify(positionDao, never()).insert(position);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"null, Position name cannot be null","'', Position name cannot be empty"}, nullValues = "null")
+    void insertShouldThrowExceptionWhenPositionNameIsNullOrEmpty(String name, String expectedMessage){
+        position = createValidPosition();
+        position.setName(name);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(position));
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).insert(position);
+    }
+
+    @Test
+    void updateShouldCallPositionDaoWhenPositionIsValid(){
+        position = createValidPosition();
+        service.update(position);
+        verify(positionDao).update(position);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"null, Position cannot be null"}, nullValues = "null")
+    void updateShouldThrowExceptionWhenPositionIsNull(Position position, String expectedMessage){
+        DBException exception = assertThrows(DBException.class, () -> service.update(position));
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).update(position);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"null, Position name cannot be null","'', Position name cannot be empty"}, nullValues = "null")
+    void updateShouldThrowExceptinWhenPositionNameIsNullOrEmpty(String name, String expetecMessage){
+        position = createValidPosition();
+        position.setName(name);
+        DBException exception = assertThrows(DBException.class, () -> service.update(position));
+        assertEquals(expetecMessage, exception.getMessage());
+        verify(positionDao, never()).update(position);
     }
 }

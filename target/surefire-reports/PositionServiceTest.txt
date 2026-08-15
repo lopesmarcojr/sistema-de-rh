@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: EmployeeServiceTest
+Test set: PositionServiceTest
 -------------------------------------------------------------------------------
-Tests run: 71, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.194 s -- in EmployeeServiceTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.048 s -- in PositionServiceTest
