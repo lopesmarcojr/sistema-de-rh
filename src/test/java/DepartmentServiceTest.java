@@ -61,6 +61,32 @@ public class DepartmentServiceTest {
     }
 
     @Test
+    void updateShouldCallDepartmentDaoWhenDepartmentIsValid(){
+        department = createValidDepartment();
+        service.update(department);
+        verify(departmentDao).update(department);
+    }
+
+    @ParameterizedTest
+    @NullSource
+    void updateShouldThrowExceptionWhenDepartmentIsNull(Department department){
+        DBException exception = assertThrows(DBException.class, () -> service.update(department));
+        String expectedMessage = "Department cannot be null";
+        assertEquals(expectedMessage,exception.getMessage());
+        verify(departmentDao, never()).update(department);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"null, Department name cannot be null", "'', Department name cannot be empty"}, nullValues = "null")
+    void updateShouldThrowExceptionWhenDepartmentNameIsNullOrEmpty(String name, String expectedMessage){
+        department = createValidDepartment();
+        department.setName(name);
+        DBException exception = assertThrows(DBException.class, () -> service.update(department));
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao, never()).update(department);
+    }
+
+    @Test
     void findByIdShouldReturnDepartmentWhenIdIsValid(){
         Integer id = 1;
         Department department = createValidDepartment();
