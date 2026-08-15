@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,11 +73,36 @@ public class PositionServiceTest {
 
     @ParameterizedTest
     @CsvSource(value = {"null, Position name cannot be null","'', Position name cannot be empty"}, nullValues = "null")
-    void updateShouldThrowExceptinWhenPositionNameIsNullOrEmpty(String name, String expetecMessage){
+    void updateShouldThrowExceptionWhenPositionNameIsNullOrEmpty(String name, String expetecMessage){
         position = createValidPosition();
         position.setName(name);
         DBException exception = assertThrows(DBException.class, () -> service.update(position));
         assertEquals(expetecMessage, exception.getMessage());
         verify(positionDao, never()).update(position);
+    }
+
+    @Test
+    void findByIdShouldCallPositionDaoWhenIdIsValid(){
+        Integer id = 1;
+        service.findById(id);
+        verify(positionDao).findById(id);
+    }
+
+    @ParameterizedTest
+    @NullSource
+    void findByIdShouldThrowExceptionWhenIdIsNull(Integer id){
+        DBException exception = assertThrows(DBException.class, () -> service.findById(id));
+        String expectedMessage = "Id cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).findById(id);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1})
+    void findByIdShouldThrowExceptionWhenIdIsLessOrEqualToZero(Integer id){
+        DBException exception = assertThrows(DBException.class, () -> service.findById(id));
+        String expectedMessage = "Id should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).findById(id);
     }
 }
