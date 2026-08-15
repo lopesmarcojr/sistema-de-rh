@@ -1,7 +1,6 @@
 import db.DBException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
-import model.entities.Employee;
 import model.service.DepartmentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -235,11 +234,4 @@ public class DepartmentServiceTest {
         assertEquals(expectedMessage, exception.getMessage());
         verify(departmentDao, never()).findPage(page, pageSize);
     }
-
-
-
-
-
-
-
 }
