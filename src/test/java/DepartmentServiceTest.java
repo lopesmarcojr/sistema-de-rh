@@ -6,6 +6,7 @@ import model.service.DepartmentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -31,6 +32,32 @@ public class DepartmentServiceTest {
     private Department createValidDepartment(){
         Department department = new Department(1,"Test");
         return department;
+    }
+
+    @Test
+    void insertShouldCallDepartmentDaoWhenDepartmenIsValid(){
+        department = createValidDepartment();
+        service.insert(department);
+        verify(departmentDao).insert(department);
+    }
+
+    @ParameterizedTest
+    @NullSource
+    void insertShouldThrowInterceptionWhenDepartmentIsNull(Department department){
+        DBException exception = assertThrows(DBException.class, () -> service.insert(department));
+        String expectedMessage = "Department cannot be null";
+        assertEquals(expectedMessage,exception.getMessage());
+        verify(departmentDao, never()).insert(department);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"null, Department name cannot be null", "'',Department name cannot be empty"}, nullValues = "null")
+    void insertShouldThrowExceptionWhenDepartmentNameIsNullOrEmpty(String name, String expectedMessage){
+        department = createValidDepartment();
+        department.setName(name);
+        DBException exception = assertThrows(DBException.class, () -> service.insert(department));
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(departmentDao,never()).insert(department);
     }
 
     @Test
