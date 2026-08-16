@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: DepartmentServiceTest
 -------------------------------------------------------------------------------
-Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.214 s -- in DepartmentServiceTest
+Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.621 s -- in DepartmentServiceTest
