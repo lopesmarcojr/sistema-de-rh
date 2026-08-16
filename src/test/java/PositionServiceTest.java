@@ -10,6 +10,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 
@@ -143,5 +145,67 @@ public class PositionServiceTest {
         Integer result = service.countPosition();
         assertEquals(countPositions, result);
         verify(positionDao).countPosition();
+    }
+
+    @Test
+    void findPageShouldReturnListReturnedByDao(){
+        List<Position> positions = List.of(createValidPosition());
+        Integer page = 1;
+        Integer pageSize = 5;
+        when(positionDao.findPage(page, pageSize)).thenReturn(positions);
+        List<Position> result = service.findPage(page, pageSize);
+        assertEquals(positions, result);
+        verify(positionDao).findPage(page, pageSize);
+    }
+
+    @Test
+    void findPageShouldReturnEmptyListWhenDaoReturnsEmptyList(){
+        List<Position> positions = Collections.emptyList();
+        Integer page = 1;
+        Integer pageSize = 5;
+        when(positionDao.findPage(page, pageSize)).thenReturn(positions);
+        List<Position> result = service.findPage(page, pageSize);
+        assertEquals(positions, result);
+        verify(positionDao).findPage(page, pageSize);
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageNumberIsNull(){
+        Integer page = null;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page number cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).findPage(anyInt(), anyInt());
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageNumberIsLessOrEqualToZero(){
+        Integer page = 0;
+        Integer pageSize = 5;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page number should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).findPage(anyInt(),anyInt());
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageSizeIsNull(){
+        Integer page = 1;
+        Integer pageSize = null;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page size cannot be null";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).findPage(anyInt(), anyInt());
+    }
+
+    @Test
+    void findPageShouldThrowExceptionWhenPageSizeIsEqualOrLessThanZero(){
+        Integer page = 1;
+        Integer pageSize = 0;
+        DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
+        String expectedMessage = "Page size should be greater than zero";
+        assertEquals(expectedMessage, exception.getMessage());
+        verify(positionDao, never()).findPage(anyInt(),anyInt());
     }
 }

@@ -227,8 +227,8 @@ public class DepartmentServiceTest {
 
     @Test
     void findPageShouldThrowExceptionWhenPageSizeIsLessOrEqualToZero(){
-        int page = 1;
-        int pageSize = 0;
+        Integer page = 1;
+        Integer pageSize = 0;
         DBException exception = assertThrows(DBException.class, () -> service.findPage(page, pageSize));
         String expectedMessage = "Page size should be greater than zero";
         assertEquals(expectedMessage, exception.getMessage());

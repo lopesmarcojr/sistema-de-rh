@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="PositionServiceTest" time="0.081" tests="16" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="PositionServiceTest" time="0.094" tests="22" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="BR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Users\lopes\.jdks\ms-21.0.11\bin"/>
-    <property name="sun.java.command" value="C:\Users\lopes\AppData\Local\Temp\surefire6681138368550648957\surefirebooter-20260816101506190_3.jar C:\Users\lopes\AppData\Local\Temp\surefire6681138368550648957 2026-08-16T10-15-05_985-jvmRun1 surefire-20260816101506190_1tmp surefire_0-20260816101506190_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\lopes\AppData\Local\Temp\surefire17127309513276657971\surefirebooter-20260816135954892_3.jar C:\Users\lopes\AppData\Local\Temp\surefire17127309513276657971 2026-08-16T13-59-54_698-jvmRun1 surefire-20260816135954892_1tmp surefire_0-20260816135954892_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\projetos-intelijj\sistema-de-rh\target\test-classes;C:\projetos-intelijj\sistema-de-rh\target\classes;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\lopes\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\lopes\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\lopes\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\lopes\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\lopes\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\lopes\.m2\repository\com\mysql\mysql-connector-j\9.7.0\mysql-connector-j-9.7.0.jar;C:\Users\lopes\.m2\repository\com\google\protobuf\protobuf-java\4.31.1\protobuf-java-4.31.1.jar;C:\Users\lopes\.m2\repository\org\mockito\mockito-core\5.23.0\mockito-core-5.23.0.jar;C:\Users\lopes\.m2\repository\net\bytebuddy\byte-buddy\1.17.7\byte-buddy-1.17.7.jar;C:\Users\lopes\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.7\byte-buddy-agent-1.17.7.jar;C:\Users\lopes\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\lopes\AppData\Local\Temp\surefire6681138368550648957\surefirebooter-20260816101506190_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\lopes\AppData\Local\Temp\surefire17127309513276657971\surefirebooter-20260816135954892_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.11+10-LTS"/>
@@ -64,20 +64,26 @@
     <property name="maven.repo.local" value="C:\Users\lopes\.m2\repository"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="findByIdShouldThrowExceptionWhenIdIsLessOrEqualToZero(Integer)[1]" classname="PositionServiceTest" time="0.037"/>
-  <testcase name="findByIdShouldThrowExceptionWhenIdIsLessOrEqualToZero(Integer)[2]" classname="PositionServiceTest" time="0.0"/>
+  <testcase name="findByIdShouldThrowExceptionWhenIdIsLessOrEqualToZero(Integer)[1]" classname="PositionServiceTest" time="0.039"/>
+  <testcase name="findByIdShouldThrowExceptionWhenIdIsLessOrEqualToZero(Integer)[2]" classname="PositionServiceTest" time="0.001"/>
   <testcase name="findAllShouldReturnListReturnedByPositionDao" classname="PositionServiceTest" time="0.001"/>
   <testcase name="findByIdShouldThrowExceptionWhenIdIsNull(Integer)[1]" classname="PositionServiceTest" time="0.002"/>
-  <testcase name="countDepartmentShouldReturnZeroWhenDaoReturnZero" classname="PositionServiceTest" time="0.001"/>
+  <testcase name="findPageShouldReturnListReturnedByDao" classname="PositionServiceTest" time="0.001"/>
   <testcase name="updateShouldCallPositionDaoWhenPositionIsValid" classname="PositionServiceTest" time="0.001"/>
-  <testcase name="findByIdShouldCallPositionDaoWhenIdIsValid" classname="PositionServiceTest" time="0.0"/>
-  <testcase name="insertShouldThrowExceptionWhenPositionNameIsNullOrEmpty(String, String)[1]" classname="PositionServiceTest" time="0.002"/>
+  <testcase name="findByIdShouldCallPositionDaoWhenIdIsValid" classname="PositionServiceTest" time="0.001"/>
+  <testcase name="insertShouldThrowExceptionWhenPositionNameIsNullOrEmpty(String, String)[1]" classname="PositionServiceTest" time="0.001"/>
   <testcase name="insertShouldThrowExceptionWhenPositionNameIsNullOrEmpty(String, String)[2]" classname="PositionServiceTest" time="0.001"/>
-  <testcase name="countDepartmentShouldReturnCountReturnedByDao" classname="PositionServiceTest" time="0.001"/>
+  <testcase name="countPositionShouldReturnCountReturnedByDao" classname="PositionServiceTest" time="0.001"/>
+  <testcase name="countPositionShouldReturnZeroWhenDaoReturnZero" classname="PositionServiceTest" time="0.002"/>
+  <testcase name="findPageShouldThrowExceptionWhenPageSizeIsNull" classname="PositionServiceTest" time="0.002"/>
   <testcase name="insertShouldCallPositionDaoWhenPositionIsValid" classname="PositionServiceTest" time="0.001"/>
   <testcase name="insertShouldThrowExceptionWhenPositionIsNull(Position, String)[1]" classname="PositionServiceTest" time="0.004"/>
+  <testcase name="findPageShouldThrowExceptionWhenPageSizeIsEqualOrLessThanZero" classname="PositionServiceTest" time="0.002"/>
   <testcase name="findAllShouldReturnEmptyListWhenDaoReturnsEmptyList" classname="PositionServiceTest" time="0.001"/>
   <testcase name="updateShouldThrowExceptionWhenPositionIsNull(Position, String)[1]" classname="PositionServiceTest" time="0.003"/>
   <testcase name="updateShouldThrowExceptionWhenPositionNameIsNullOrEmpty(String, String)[1]" classname="PositionServiceTest" time="0.002"/>
   <testcase name="updateShouldThrowExceptionWhenPositionNameIsNullOrEmpty(String, String)[2]" classname="PositionServiceTest" time="0.001"/>
+  <testcase name="findPageShouldThrowExceptionWhenPageNumberIsNull" classname="PositionServiceTest" time="0.002"/>
+  <testcase name="findPageShouldThrowExceptionWhenPageNumberIsLessOrEqualToZero" classname="PositionServiceTest" time="0.002"/>
+  <testcase name="findPageShouldReturnEmptyListWhenDaoReturnsEmptyList" classname="PositionServiceTest" time="0.001"/>
 </testsuite>

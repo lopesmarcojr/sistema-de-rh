@@ -74,7 +74,7 @@ public class PositionService {
         return positionDao.countPosition();
     }
 
-    public List<Position> findPage(int page, int pageSize){
+    public List<Position> findPage(Integer page, Integer pageSize){
         validatePagination(page, pageSize);
         return positionDao.findPage(page, pageSize);
     }
