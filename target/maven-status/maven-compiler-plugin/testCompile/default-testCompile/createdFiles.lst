@@ -1,3 +1,4 @@
 PositionServiceTest.class
 DepartmentServiceTest.class
 EmployeeServiceTest.class
+DepartmentDaoJDBCTest.class

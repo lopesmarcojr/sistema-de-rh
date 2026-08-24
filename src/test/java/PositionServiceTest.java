@@ -208,4 +208,6 @@ public class PositionServiceTest {
         assertEquals(expectedMessage, exception.getMessage());
         verify(positionDao, never()).findPage(anyInt(),anyInt());
     }
+
+
 }
