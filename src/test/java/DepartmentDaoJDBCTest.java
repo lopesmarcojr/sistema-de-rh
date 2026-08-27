@@ -6,8 +6,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.net.DatagramPacket;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DepartmentDaoJDBCTest {
 
@@ -42,6 +44,15 @@ public class DepartmentDaoJDBCTest {
         Integer id = 99999;
         Department result = departmentDao.findById(id);
         assertNull(result);
+    }
+
+    @Test
+    void findAllShouldReturnListReturnedByDepartmentDao(){
+        department = createValidDepartment();
+        departmentDao.insert(department);
+        Integer id = department.getId();
+        List<Department> result = departmentDao.findAll();
+        assertTrue(result.stream().anyMatch(department -> department.getId().equals(id)));
     }
 
     private Department createValidDepartment(){
