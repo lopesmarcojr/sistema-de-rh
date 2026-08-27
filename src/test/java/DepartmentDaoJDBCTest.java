@@ -51,8 +51,10 @@ public class DepartmentDaoJDBCTest {
         department = createValidDepartment();
         departmentDao.insert(department);
         Integer id = department.getId();
+        String name = department.getName();
         List<Department> result = departmentDao.findAll();
-        assertTrue(result.stream().anyMatch(department -> department.getId().equals(id)));
+        assertTrue(result.stream().anyMatch(department -> department.getId().equals(id)
+                && department.getName().equals(name)));
     }
 
     private Department createValidDepartment(){
